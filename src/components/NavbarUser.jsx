@@ -9,7 +9,7 @@ const NavbarUser = ({ device, dashboard, schedule, alert }) => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const redirect = "/";
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -71,7 +71,7 @@ const NavbarUser = ({ device, dashboard, schedule, alert }) => {
 
           <div className="flex flex-row items-center">
             <h3 className="mr-4">
-              <button onClick={logoutHandler}>Logout</button>
+              <button onClick={logoutHandler}>{userInfo.name}</button>
             </h3>
             <Link to="/profile">
               <img src={avatar} alt="avatar" />

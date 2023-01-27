@@ -1,4 +1,9 @@
+import { useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { listDevices } from "../actions/deviceActions";
 
 // Header and Footer
 import NavbarUser from "../components/NavbarUser";
@@ -10,9 +15,15 @@ import Device from "../components/Device";
 import SearchIcon from "@mui/icons-material/Search";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
-import devices from "../constants/devices.json";
-
 const DeviceScreen = () => {
+  const dispatch = useDispatch();
+  const deviceList = useSelector((state) => state.deviceList);
+  const { error, loading, devices } = deviceList;
+
+  useEffect(() => {
+    dispatch(listDevices());
+  }, [dispatch]);
+
   return (
     <div className="flex flex-col min-h-screen">
       <NavbarUser device />
