@@ -6,7 +6,6 @@ import { agrobijak, avatar } from "../assets";
 
 const NavbarUser = ({ device, dashboard, schedule, alert }) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
 
   const redirect = "/";

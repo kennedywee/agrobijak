@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { listDevices } from "../actions/deviceActions";
 
+import _ from "lodash";
+
 // Header and Footer
 import NavbarUser from "../components/NavbarUser";
 import Footer from "../components/Footer";
@@ -49,39 +51,42 @@ const DeviceScreen = () => {
         </div>
 
         {/* Device in Grid */}
-        <div className="justify-center py-10">
-          <div className="grid grid-cols-3 gap-12">
-            {devices.map((device) => (
-              <div
-                key={device.id}
-                className="col-span-1 border p-5 rounded-lg cursor-pointer hover:shadow-lg"
-              >
-                <Device device={device} />
-              </div>
-            ))}
+        {!_.isEmpty(devices) ? (
+          <div className="justify-center py-10">
+            <div className="grid grid-cols-3 gap-12">
+              {devices.map((device) => (
+                <div
+                  key={device.id}
+                  className="col-span-1 border p-5 rounded-lg cursor-pointer hover:shadow-lg"
+                >
+                  <Device device={device} />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="flex items-center justify-center border h-[400px] rounded-lg my-6">
+            <div className="items-center justify-center text-center">
+              <h1 className="font-poppins font-semibold mb-2">
+                Hello! Welcome to AgroBijak
+              </h1>
+              <p className="font-poppins ">
+                Start adding and manage the devices for farm with AgroBijak
+                Cloud Platform!
+              </p>
+              <Link to="/device/add">
+                <button className="font-poppins text-rose-900 font-bold underline mt-8">
+                  New Device →
+                </button>
+              </Link>
+            </div>
+          </div>
+        )}
 
         {/* device - empty */}
-        <div className="flex items-center justify-center border h-[400px] rounded-lg my-6">
-          <div className="items-center justify-center text-center">
-            <h1 className="font-poppins font-semibold mb-2">
-              Hello! Welcome to AgroBijak
-            </h1>
-            <p className="font-poppins ">
-              Start adding and manage the devices for farm with AgroBijak Cloud
-              Platform!
-            </p>
-            <Link to="/device/add">
-              <button className="font-poppins text-rose-900 font-bold underline mt-8">
-                New Device →
-              </button>
-            </Link>
-          </div>
-        </div>
 
         {/* device - search not found */}
-        <div className="flex items-center justify-center border h-[400px] rounded-lg my-6">
+        <div className="hidden flex items-center justify-center border h-[400px] rounded-lg my-6">
           <div className="items-center justify-center text-center">
             <h1 className="font-poppins font-semibold mb-2">
               No Results Found

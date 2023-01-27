@@ -1,9 +1,24 @@
 import { Link } from "react-router-dom";
 
+import { useState } from "react";
+
 import NavbarUser from "../components/NavbarUser";
 import Footer from "../components/Footer";
 
+import DeviceSidebar from "../components/DeviceSidebar";
+
 const DeviceAddScreen = () => {
+  const [sidebar, setSidebar] = useState(1);
+
+  const sideBar = (e) => {
+    console.log(e);
+    setSidebar(e);
+  };
+
+  function sideBarTest(value) {
+    console.log(value);
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       <NavbarUser device />
@@ -29,11 +44,15 @@ const DeviceAddScreen = () => {
           <div className="font-medium w-1/6 text-gray-700">
             <div className="sticky top-10">
               <ul className="flex flex-col space-y-5 ">
-                <i className="text-amber-900 cursor-pointer">
-                  General Information
+                <i className={`cursor-pointer `}>
+                  <button onClick={sideBarTest(1)}>General Information </button>{" "}
                 </i>
-                <i className="cursor-pointer">Meta Data</i>
-                <i className="cursor-pointer">Device Fields</i>
+                <i onClick={sideBarTest(2)} className={`cursor-pointer`}>
+                  Meta Data
+                </i>
+                <i onClick={sideBarTest(3)} className={`cursor-pointer `}>
+                  Device Fields
+                </i>
               </ul>
             </div>
           </div>
