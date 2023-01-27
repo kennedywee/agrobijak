@@ -15,7 +15,7 @@ import devices from "../constants/devices.json";
 const DeviceScreen = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <NavbarUser />
+      <NavbarUser device />
 
       <div className="container w-full">
         <div className="flex items-center justify-between space-x-4">

@@ -16,7 +16,7 @@ const DeviceDetailScreen = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <NavbarUser />
+      <NavbarUser device />
 
       <div className="container">
         <Link to="/device">

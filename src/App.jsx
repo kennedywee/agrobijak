@@ -12,6 +12,7 @@ import DeviceScreen from "./screen/DeviceScreen.jsx";
 import DeviceDetailScreen from "./screen/DeviceDetailScreen.jsx";
 import DeviceAddScreen from "./screen/DeviceAddScreen.jsx";
 import DeviceEditScreen from "./screen/DeviceEditScreen.jsx";
+import ProfileScreen from "./screen/ProfileScreen.jsx";
 
 function App() {
   return (
@@ -25,12 +26,11 @@ function App() {
         <Route exact path="/contact" element={<FeatureScreen />} />
 
         {/* Basic Links */}
-        <Route exact path="/signup" element={<RegisterScreen />} />
+        <Route exact path="/register" element={<RegisterScreen />} />
         <Route exact path="/login" element={<LoginScreen />} />
+        <Route exact path="/profile" element={<ProfileScreen />} />
 
         {/* Functional Links*/}
-        <Route exact path="/overview" element={<OverviewScreen />} />
-
         <Route exact path="/dashboard" element={<DashboardScreen />} />
 
         <Route exact path="/schedule" element={<ScheduleScreen />} />

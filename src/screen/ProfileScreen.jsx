@@ -1,15 +1,12 @@
-import GridPro from "../components/GridPro";
 import NavbarUser from "../components/NavbarUser";
 import Footer from "../components/Footer";
 
-const DashboardScreen = () => {
+const ProfileScreen = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <NavbarUser dashboard />
+      <NavbarUser />
 
-      <div className="container w-full">
-        <GridPro></GridPro>
-      </div>
+      <div className="container w-full"></div>
 
       <div className="mt-auto">
         <Footer />
@@ -18,4 +15,4 @@ const DashboardScreen = () => {
   );
 };
 
-export default DashboardScreen;
+export default ProfileScreen;

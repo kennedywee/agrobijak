@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 const DeviceAddScreen = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <NavbarUser />
+      <NavbarUser device />
       <div className="container">
         <Link to="/device">
           <button className="font-poppins text-rose-900 font-bold mb-5">
