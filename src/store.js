@@ -7,12 +7,16 @@ import {
   userRegisterReducers,
 } from "./reducers/userReducers";
 
-import { deviceListReducers } from "./reducers/deviceReducers";
+import {
+  deviceListReducers,
+  deviceDetailsReducers,
+} from "./reducers/deviceReducers";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducers,
   deviceList: deviceListReducers,
+  deviceDetails: deviceDetailsReducers,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

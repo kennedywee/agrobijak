@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 
 import DeviceSidebar from "../components/DeviceSidebar";
 
-const DeviceAddScreen = () => {
+const DeviceAddMetaScreen = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <NavbarUser device />
@@ -32,25 +32,25 @@ const DeviceAddScreen = () => {
         <div className="flex mt-10">
           <div className="font-medium w-1/6 text-gray-700">
             <div className="sticky top-10">
-              <DeviceSidebar general />
+              <DeviceSidebar metadata />
             </div>
           </div>
           <div className="flex-grow space-y-16">
             <div className="border rounded-md shadow-md p-8">
-              <h3 className="font-medium text-xl mb-4">General Information</h3>
+              <h3 className="font-medium text-xl mb-4">Meta Data</h3>
               <hr />
               <p className="text-gray-700 mt-4">
                 Ensure that you input the right types and a distinct name to
                 identify your device in the device list section.
               </p>
 
-              <div className="flex space-x-10 mt-4">
-                <div className="flex flex-col w-2/6">
+              <div className="flex flex-col space-y-10 mt-4">
+                <div className="flex flex-col w-4/6">
                   <label
                     className="text-gray-700 font-semibold"
                     htmlFor="deviceName"
                   >
-                    Device Type
+                    Location
                   </label>
                   <input
                     type="text"
@@ -60,18 +60,18 @@ const DeviceAddScreen = () => {
                   />
                 </div>
 
-                <div className="flex flex-col w-2/6">
+                <div className="flex flex-col w-4/6">
                   <label
                     className="text-gray-700 font-semibold"
                     htmlFor="deviceName"
                   >
-                    Device Name
+                    Description
                   </label>
-                  <input
-                    type="text"
+                  <textarea
+                    type="textarea"
                     name="deviceName"
                     placeholder="Eg.. Arduino Uno Rev3, ESP32, etc"
-                    className="focus:outline-none border rounded-md py-1 px-4"
+                    className="focus:outline-none h-[150px] border rounded-md py-1 px-4"
                   />
                 </div>
               </div>
@@ -92,4 +92,4 @@ const DeviceAddScreen = () => {
   );
 };
 
-export default DeviceAddScreen;
+export default DeviceAddMetaScreen;

@@ -1,4 +1,6 @@
-import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import NavbarUser from "../components/NavbarUser";
 import Footer from "../components/Footer";
@@ -7,12 +9,20 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 import { devicephoto } from "../assets";
 
+import { listDeviceDetails } from "../actions/deviceActions";
+
 import devices from "../constants/devices.json";
 
 const DeviceDetailScreen = () => {
   let { id } = useParams();
+  const dispatch = useDispatch();
 
-  const device = devices.find((device) => device.id === id);
+  const deviceDetails = useSelector((state) => state.deviceDetails);
+  const { loading, error, device } = deviceDetails;
+
+  useEffect(() => {
+    dispatch(listDeviceDetails(id));
+  }, [dispatch, id]);
 
   return (
     <div className="flex flex-col min-h-screen">

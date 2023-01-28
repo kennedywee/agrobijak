@@ -11,6 +11,8 @@ import AlertScreen from "./screen/AlertScreen.jsx";
 import DeviceScreen from "./screen/DeviceScreen.jsx";
 import DeviceDetailScreen from "./screen/DeviceDetailScreen.jsx";
 import DeviceAddScreen from "./screen/DeviceAddScreen.jsx";
+import DeviceAddMetaScreen from "./screen/DeviceAddMetaScreen.jsx";
+import DeviceAddFieldScreen from "./screen/DeviceAddFieldScreen.jsx";
 import DeviceEditScreen from "./screen/DeviceEditScreen.jsx";
 import ProfileScreen from "./screen/ProfileScreen.jsx";
 
@@ -41,6 +43,16 @@ function App() {
 
         <Route exact path="/device" element={<DeviceScreen />} />
         <Route exact path="/device/add" element={<DeviceAddScreen />} />
+        <Route
+          exact
+          path="/device/add/metadata"
+          element={<DeviceAddMetaScreen />}
+        />
+        <Route
+          exact
+          path="/device/add/fields"
+          element={<DeviceAddFieldScreen />}
+        />
         <Route exact path="/device/:id" element={<DeviceDetailScreen />} />
         <Route exact path="/device/edit" element={<DeviceEditScreen />} />
       </Routes>
