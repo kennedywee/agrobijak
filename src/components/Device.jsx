@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import DeviceHubRoundedIcon from "@mui/icons-material/DeviceHubRounded";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 
+import DaysAgo from "../components/DaysAgo.jsx";
+
 const Device = ({ device }) => {
   return (
     <div>
@@ -33,7 +35,7 @@ const Device = ({ device }) => {
         </p>
 
         <p className="font-poppins text-sm text-gray-500">
-          Last updated: {device.updated}
+          Last updated: <DaysAgo deviceDate={device.updated} />
         </p>
       </Link>
     </div>

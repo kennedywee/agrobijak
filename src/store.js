@@ -10,6 +10,8 @@ import {
 import {
   deviceListReducers,
   deviceDetailsReducers,
+  deviceCreateReducer,
+  deviceUpdateReducer,
 } from "./reducers/deviceReducers";
 
 const reducer = combineReducers({
@@ -17,6 +19,8 @@ const reducer = combineReducers({
   userRegister: userRegisterReducers,
   deviceList: deviceListReducers,
   deviceDetails: deviceDetailsReducers,
+  deviceCreate: deviceCreateReducer,
+  deviceUpdate: deviceUpdateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { agrobijak } from "../assets";
 
@@ -31,7 +31,7 @@ const RegisterScreen = () => {
     if (password !== confirmPassword) {
       console.log("Password does not match");
     } else {
-      dispatch(register(name, email, password));
+      dispatch(register({ name, email, password }));
       navigate("/device");
     }
   };

@@ -1,13 +1,48 @@
-import { Link } from "react-router-dom";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import NavbarUser from "../components/NavbarUser";
 import Footer from "../components/Footer";
 
 import DeviceSidebar from "../components/DeviceSidebar";
 
+import { updateDevice, listDeviceDetails } from "../actions/deviceActions";
+import { DEVICE_UPDATE_RESET } from "../constants/deviceConstants";
+
 const DeviceAddMetaScreen = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [location, setLocation] = useState("");
+  const [description, setDescription] = useState("");
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const deviceUpdate = useSelector((state) => state.deviceUpdate);
+  const { success } = deviceUpdate;
+
+  const deviceCreate = useSelector((state) => state.deviceCreate);
+  const { device } = deviceCreate;
+
+  const deviceId = 11;
+
+  console.log(deviceId);
+
+  console.log("something something");
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      updateDevice({
+        id: deviceId,
+        location: location,
+        description: description,
+      })
+    );
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <NavbarUser device />
@@ -54,7 +89,9 @@ const DeviceAddMetaScreen = () => {
                   </label>
                   <input
                     type="text"
-                    name="deviceName"
+                    name="deviceLocation"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
                     placeholder="Eg.. Arduino Uno Rev3, ESP32, etc"
                     className="focus:outline-none border rounded-md py-1 px-4"
                   />
@@ -69,14 +106,19 @@ const DeviceAddMetaScreen = () => {
                   </label>
                   <textarea
                     type="textarea"
-                    name="deviceName"
+                    name="deviceDescription"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                     placeholder="Eg.. Arduino Uno Rev3, ESP32, etc"
                     className="focus:outline-none h-[150px] border rounded-md py-1 px-4"
                   />
                 </div>
               </div>
               <div className="mt-10">
-                <button className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900">
+                <button
+                  type="submit"
+                  className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900"
+                >
                   Save and Next
                 </button>
               </div>

@@ -13,6 +13,8 @@ import { listDeviceDetails } from "../actions/deviceActions";
 
 import devices from "../constants/devices.json";
 
+import DaysAgo from "../components/DaysAgo.jsx";
+
 const DeviceDetailScreen = () => {
   let { id } = useParams();
   const dispatch = useDispatch();
@@ -93,12 +95,12 @@ const DeviceDetailScreen = () => {
               <div className="flex text-gray-600">
                 <div className="mr-11">
                   <h4 className=" font-semibold">Created </h4>
-                  <p>{device.created}</p>
+                  <DaysAgo deviceDate={device.created} />
                 </div>
 
                 <div>
                   <h4 className=" font-semibold">Updated</h4>
-                  <p>{device.updated} </p>
+                  <DaysAgo deviceDate={device.updated} />
                 </div>
               </div>
             </div>
