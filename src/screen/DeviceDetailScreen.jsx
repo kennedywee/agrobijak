@@ -14,8 +14,6 @@ import { devicephoto } from "../assets";
 import { listDeviceDetails } from "../actions/deviceActions";
 import { listData } from "../actions/dataActions";
 
-import devices from "../constants/devices.json";
-
 import DaysAgo from "../components/DaysAgo.jsx";
 import DataListTable from "../components/DataListTable";
 import NoDataList from "../components/NoDataList";
@@ -31,8 +29,14 @@ const DeviceDetailScreen = () => {
   const { data } = dataList;
 
   useEffect(() => {
+    const intervalId = setInterval(() => {
+      dispatch(listData(id));
+    }, 5000);
+
     dispatch(listDeviceDetails(id));
     dispatch(listData(id));
+
+    return () => clearInterval(intervalId);
   }, [dispatch, id]);
 
   return (
