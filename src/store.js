@@ -14,6 +14,8 @@ import {
   deviceUpdateReducer,
 } from "./reducers/deviceReducers";
 
+import { dataListReducers } from "./reducers/dataReducers";
+
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducers,
@@ -21,6 +23,7 @@ const reducer = combineReducers({
   deviceDetails: deviceDetailsReducers,
   deviceCreate: deviceCreateReducer,
   deviceUpdate: deviceUpdateReducer,
+  dataList: dataListReducers,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

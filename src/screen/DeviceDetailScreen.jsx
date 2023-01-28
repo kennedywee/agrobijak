@@ -10,10 +10,12 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { devicephoto } from "../assets";
 
 import { listDeviceDetails } from "../actions/deviceActions";
+import { listData } from "../actions/dataActions";
 
 import devices from "../constants/devices.json";
 
 import DaysAgo from "../components/DaysAgo.jsx";
+import DataListTable from "../components/DataListTable";
 
 const DeviceDetailScreen = () => {
   let { id } = useParams();
@@ -22,8 +24,12 @@ const DeviceDetailScreen = () => {
   const deviceDetails = useSelector((state) => state.deviceDetails);
   const { loading, error, device } = deviceDetails;
 
+  const dataList = useSelector((state) => state.dataList);
+  const { data } = dataList;
+
   useEffect(() => {
     dispatch(listDeviceDetails(id));
+    dispatch(listData(id));
   }, [dispatch, id]);
 
   return (
@@ -125,6 +131,8 @@ const DeviceDetailScreen = () => {
             <p>Start adding data to your device with the API given.</p>
           </div>
         </div>
+
+        <DataListTable datas={data} device={device} />
       </div>
 
       <div className="mt-auto">
