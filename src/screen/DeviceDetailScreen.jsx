@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import _ from "lodash";
+
 import NavbarUser from "../components/NavbarUser";
 import Footer from "../components/Footer";
 
@@ -16,6 +18,7 @@ import devices from "../constants/devices.json";
 
 import DaysAgo from "../components/DaysAgo.jsx";
 import DataListTable from "../components/DataListTable";
+import NoDataList from "../components/NoDataList";
 
 const DeviceDetailScreen = () => {
   let { id } = useParams();
@@ -123,16 +126,11 @@ const DeviceDetailScreen = () => {
           </p>
         </div>
 
-        <div className="flex items-center justify-center border h-[300px] rounded-lg my-6">
-          <div className="items-center justify-center text-center">
-            <h1 className="font-poppins font-semibold mb-2">
-              There are no data from this device yet!
-            </h1>
-            <p>Start adding data to your device with the API given.</p>
-          </div>
-        </div>
-
-        <DataListTable datas={data} device={device} />
+        {!_.isEmpty(data) ? (
+          <DataListTable datas={data} device={device} />
+        ) : (
+          <NoDataList />
+        )}
       </div>
 
       <div className="mt-auto">

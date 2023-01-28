@@ -1,4 +1,4 @@
-import React from "react";
+import DateTime from "./DateTime";
 
 const DataListTable = ({ datas, device }) => {
   return (
@@ -45,6 +45,12 @@ const DataListTable = ({ datas, device }) => {
                   >
                     Field 5 - {device.field5}
                   </th>
+                  <th
+                    scope="col"
+                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                  >
+                    Data Time
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -67,6 +73,9 @@ const DataListTable = ({ datas, device }) => {
                     </td>
                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                       {data.field5}
+                    </td>
+                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <DateTime dataDate={data.created} />
                     </td>
                   </tr>
                 ))}
