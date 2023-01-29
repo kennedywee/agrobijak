@@ -18,14 +18,6 @@ import { listDeviceDetails } from "../actions/deviceActions";
 import { listData } from "../actions/dataActions";
 import { useDispatch, useSelector } from "react-redux";
 
-// const data = [];
-// for (let num = 20; num >= 0; num--) {
-//   data.push({
-//     date: subDays(new Date(), num).toISOString().substring(0, 10),
-//     value: 1 + Math.random(),
-//   });
-// }
-
 const AgroLineChart = ({ widget }) => {
   const id = widget.device;
   const dispatch = useDispatch();
@@ -64,8 +56,13 @@ const AgroLineChart = ({ widget }) => {
             />
             <YAxis dataKey={fieldStr} />
             <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey={fieldStr} stroke="#8884d8" />
+
+            <Line
+              type="monotone"
+              dataKey={fieldStr}
+              strokeWidth={3}
+              stroke="#8884d8"
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>
