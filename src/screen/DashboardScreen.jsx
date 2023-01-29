@@ -10,7 +10,7 @@ const DashboardScreen = () => {
       <NavbarUser dashboard />
 
       <div className="container w-full">
-        <GridStorage></GridStorage>
+        <AgroGrid></AgroGrid>
       </div>
 
       <div className="mt-auto">

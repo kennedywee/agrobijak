@@ -11,8 +11,9 @@ import AgroSwitch from "./AgroSwitch";
 import _ from "lodash";
 import AgroIndicator from "./AgroIndicator";
 
+import widgets from "../constants/widgets.json";
+
 const ReactGridLayout = WidthProvider(RGL);
-const originalLayout = getFromLS("layout") || [];
 
 const data = [
   {
@@ -147,62 +148,6 @@ const data = [
   },
 ];
 
-let widgets = [
-  {
-    id: 1,
-    user: 2,
-    type: "linechart",
-    device: 2,
-    datafield: 2,
-    w: 7,
-    h: 10,
-    x: 0,
-    y: 0,
-    i: 1,
-    moved: false,
-    static: false,
-    maxH: 10,
-    minH: 8,
-    maxW: 12,
-    minW: 7,
-  },
-  {
-    id: 2,
-    user: 2,
-    type: "temperature",
-    device: 2,
-    datafield: 2,
-    w: 3,
-    h: 4,
-    x: 3,
-    y: 2,
-    i: 2,
-    moved: false,
-    static: false,
-
-    isResizable: true,
-  },
-  {
-    id: 3,
-    user: 2,
-    type: "",
-    device: 2,
-    datafield: 2,
-    w: 3,
-    h: 4,
-    x: 3,
-    y: 2,
-    i: 4,
-    moved: false,
-    static: false,
-    maxH: 3,
-    minH: 3,
-    maxW: 4,
-    minW: 4,
-    isResizable: false,
-  },
-];
-
 export default class GridStorage extends Component {
   static defaultProps = {
     className: "layout",
@@ -230,30 +175,11 @@ export default class GridStorage extends Component {
   }
 
   onLayoutChange(layout) {
-    /*eslint no-console: 0*/
-    //saveToLS("layout", layout);
-    console.log(layout);
     this.setState({ layout });
     this.props.onLayoutChange(layout); // updates status display
   }
 
-  generateLayout() {
-    return _.map(widgets, function (widget) {
-      return {
-        x: widget.x,
-        y: widget.y,
-        w: widget.w,
-        h: widget.h,
-        i: widget.i.toString(),
-        type: widget.type,
-        maxH: 1,
-        maxW: 1,
-      };
-    });
-  }
-
   generateDOM() {
-    const layout = this.generateLayout();
     return _.map(widgets, function (widget) {
       switch (widget.type) {
         case "temperature":
@@ -297,29 +223,6 @@ export default class GridStorage extends Component {
           {this.generateDOM()}
         </ReactGridLayout>
       </div>
-    );
-  }
-}
-
-function getFromLS(key) {
-  let ls = {};
-  if (localStorage) {
-    try {
-      ls = JSON.parse(localStorage.getItem("store")) || {};
-    } catch (e) {
-      /*Ignore*/
-    }
-  }
-  return ls[key];
-}
-
-function saveToLS(key, value) {
-  if (localStorage) {
-    localStorage.setItem(
-      "store",
-      JSON.stringify({
-        [key]: value,
-      })
     );
   }
 }

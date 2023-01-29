@@ -11,6 +11,13 @@ import {
 
 import { format, parseISO, subDays } from "date-fns";
 
+import moment from "moment/moment";
+
+import { useEffect } from "react";
+import { listDeviceDetails } from "../actions/deviceActions";
+import { listData } from "../actions/dataActions";
+import { useDispatch, useSelector } from "react-redux";
+
 // const data = [];
 // for (let num = 20; num >= 0; num--) {
 //   data.push({
@@ -19,35 +26,50 @@ import { format, parseISO, subDays } from "date-fns";
 //   });
 // }
 
-const AgroLineChart = ({ deviceData }) => {
+const AgroLineChart = ({ widget }) => {
+  const id = widget.device;
+  const dispatch = useDispatch();
+
+  const fieldStr = widget.datafield;
+
+  const deviceDetails = useSelector((state) => state.deviceDetails);
+  const { device } = deviceDetails;
+
+  const dataList = useSelector((state) => state.dataList);
+  const { data } = dataList;
+
+  let reversedData = data.reverse();
+
+  console.log(reversedData);
+
+  useEffect(() => {
+    dispatch(listDeviceDetails(id));
+    dispatch(listData(id));
+  }, [dispatch, id]);
+
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart
-        margin={{
-          top: 5,
-          right: 60,
-          left: 0,
-          bottom: 5,
-        }}
-        data={deviceData}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          dataKey="created"
-          tickFormatter={(str) => {
-            const date = parseISO(str);
-            if (date.getDate() % 7 === 0) {
-              return format(date, "MMM, d");
-            }
-            return "";
-          }}
-        />
-        <YAxis dataKey="field1" />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="field1" stroke="#8884d8" />
-      </LineChart>
-    </ResponsiveContainer>
+    <div className="w-full h-full">
+      <h1>{device.name}</h1>
+      <div className="w-full h-full flex ">
+        <ResponsiveContainer width="90%" height="90%">
+          <LineChart data={data.reverse()}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="created"
+              tickFormatter={(str) => {
+                console.log(typeof str);
+                const date = moment(str);
+                return date.format("MM/DD/YY");
+              }}
+            />
+            <YAxis dataKey={fieldStr} />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey={fieldStr} stroke="#8884d8" />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
   );
 };
 
