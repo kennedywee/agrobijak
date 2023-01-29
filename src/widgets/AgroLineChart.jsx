@@ -5,43 +5,32 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 
-import { format, parseISO, subDays } from "date-fns";
-
 import moment from "moment/moment";
 
-import { useEffect } from "react";
-import { listDeviceDetails } from "../actions/deviceActions";
-import { listData } from "../actions/dataActions";
-import { useDispatch, useSelector } from "react-redux";
-
-const AgroLineChart = ({ widget }) => {
+const AgroLineChart = ({ widget, devices, dData }) => {
   const id = widget.device;
-  const dispatch = useDispatch();
+  const device = devices.find((e) => e.id === id);
+
+  if (!device) {
+    console.error("Device not found");
+    return;
+  }
 
   const fieldStr = widget.datafield;
+  const fieldValue = device[fieldStr];
 
-  const deviceDetails = useSelector((state) => state.deviceDetails);
-  const { device } = deviceDetails;
-
-  const dataList = useSelector((state) => state.dataList);
-  const { data } = dataList;
-
-  let reversedData = data.reverse();
-
-  console.log(reversedData);
-
-  useEffect(() => {
-    dispatch(listDeviceDetails(id));
-    dispatch(listData(id));
-  }, [dispatch, id]);
+  let data = dData.filter(function (entry) {
+    return entry.device === id;
+  });
 
   return (
     <div className="w-full h-full">
-      <h1>{device.name}</h1>
+      <h1>
+        {device.name} | {fieldValue}
+      </h1>
       <div className="w-full h-full flex ">
         <ResponsiveContainer width="90%" height="90%">
           <LineChart data={data.reverse()}>
@@ -49,17 +38,16 @@ const AgroLineChart = ({ widget }) => {
             <XAxis
               dataKey="created"
               tickFormatter={(str) => {
-                console.log(typeof str);
                 const date = moment(str);
                 return date.format("MM/DD/YY");
               }}
             />
-            <YAxis dataKey={fieldStr} />
+            <YAxis dataKey="field2" />
             <Tooltip />
 
             <Line
               type="monotone"
-              dataKey={fieldStr}
+              dataKey="field2"
               strokeWidth={3}
               stroke="#8884d8"
             />

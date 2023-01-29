@@ -14,7 +14,12 @@ import {
   deviceUpdateReducer,
 } from "./reducers/deviceReducers";
 
-import { dataListReducers } from "./reducers/dataReducers";
+import {
+  dataListReducers,
+  dataDashboardReducers,
+} from "./reducers/dataReducers";
+
+import { widgetListReducers } from "./reducers/widgetReducers";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -24,6 +29,8 @@ const reducer = combineReducers({
   deviceCreate: deviceCreateReducer,
   deviceUpdate: deviceUpdateReducer,
   dataList: dataListReducers,
+  dashboardData: dataDashboardReducers,
+  widgetList: widgetListReducers,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

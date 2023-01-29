@@ -6,6 +6,12 @@ import _ from "lodash";
 import RGL, { WidthProvider } from "react-grid-layout";
 const AgroGridPro = WidthProvider(RGL);
 
+import { useEffect } from "react";
+
+import { listDevices } from "../actions/deviceActions";
+import { dashboardData } from "../actions/dataActions";
+import { useDispatch, useSelector } from "react-redux";
+
 import AgroGauge from "./AgroGauge";
 import AgroIndicator from "./AgroIndicator";
 import AgroLineChart from "./AgroLineChart";
@@ -14,7 +20,6 @@ import AgroSwitch from "./AgroSwitch";
 import AgroTemp from "./AgroTemp";
 
 import widgets from "../constants/widgets.json";
-import data from "../constants/data.json";
 
 const AgroGrid = ({
   className = "layout",
@@ -23,7 +28,14 @@ const AgroGrid = ({
   onLayoutChange,
   isBounded = true,
 }) => {
+  const dispatch = useDispatch();
   const [layout, setLayout] = useState([]);
+
+  const deviceList = useSelector((state) => state.deviceList);
+  const { devices } = deviceList;
+
+  const dashboardDataList = useSelector((state) => state.dashboardData);
+  const { data } = dashboardDataList;
 
   const resetLayout = () => {
     setLayout([]);
@@ -34,41 +46,33 @@ const AgroGrid = ({
     console.log(newLayout);
   };
 
+  const components = {
+    linechart: AgroLineChart,
+    gauge: AgroGauge,
+    indicator: AgroIndicator,
+    switch: AgroSwitch,
+    percentage: AgroPercentage,
+  };
+
   const generateDOM = () =>
     _.map(widgets, (widget) => {
-      switch (widget.type) {
-        case "temperature":
-          return (
-            <div className="border bg-white" key={widget.i} data-grid={widget}>
-              <div className="flex justify-center">
-                <h2>Arduino Uno | Light A</h2>
-              </div>
-              <AgroIndicator />
-            </div>
-          );
-        case "linechart":
-          return (
-            <div className="border bg-white" key={widget.i} data-grid={widget}>
-              <AgroLineChart widget={widget} deviceData={data} />
-            </div>
-          );
-        case "gauge":
-          return (
-            <div className="border bg-white" key={widget.i} data-grid={widget}>
-              <div className="flex justify-center">
-                <h2>Arduino Uno | Light A</h2>
-              </div>
-              <AgroLineChart deviceData={data} />
-            </div>
-          );
-        default:
-          return (
-            <div className="border bg-white" key={widget.i} data-grid={widget}>
-              <span>Something</span>
-            </div>
-          );
-      }
+      const Component = components[widget.type] || "span";
+      return (
+        <div className="border bg-white" key={widget.i} data-grid={widget}>
+          {typeof Component === "string" ? (
+            <span>Something</span>
+          ) : (
+            <Component widget={widget} devices={devices} dData={data} />
+          )}
+        </div>
+      );
     });
+
+  useEffect(() => {
+    dispatch(listDevices());
+    dispatch(dashboardData());
+  }, [dispatch]);
+
   return (
     <div>
       <button onClick={resetLayout}>Reset Layout</button>
