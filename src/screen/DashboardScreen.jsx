@@ -1,4 +1,6 @@
 import GridPro from "../components/GridPro";
+import AgroGrid from "../widgets/AgroGrid";
+import GridStorage from "../widgets/GridStorage";
 import NavbarUser from "../components/NavbarUser";
 import Footer from "../components/Footer";
 
@@ -8,7 +10,7 @@ const DashboardScreen = () => {
       <NavbarUser dashboard />
 
       <div className="container w-full">
-        <GridPro></GridPro>
+        <GridStorage></GridStorage>
       </div>
 
       <div className="mt-auto">

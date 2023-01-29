@@ -4,7 +4,7 @@ import ThermostatRoundedIcon from "@mui/icons-material/ThermostatRounded";
 
 const TemperatureWidget = () => {
   return (
-    <div className="bg-white border border-gray-200">
+    <div className="bg-white">
       <div className="flex flex-row items-center justify-between">
         <div>
           <h2 className="text-xl font-normal tracking-tight text-gray-900">

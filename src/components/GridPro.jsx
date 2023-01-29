@@ -3,6 +3,8 @@ import RGL, { WidthProvider } from "react-grid-layout";
 import _ from "lodash";
 
 import TemperatureWidget from "../widgets/TemperatureWidget";
+import AgroLineChart from "../widgets/AgroLineChart";
+import TestLineChart from "./TestLineChart";
 
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
@@ -133,10 +135,10 @@ export default class GridPro extends React.PureComponent {
           onLayoutChange={this.onLayoutChange}
         >
           <div key="1" data-grid={{ w: 2, h: 3, x: 0, y: 0 }}>
-            <TemperatureWidget />
+            <TestLineChart />
           </div>
-          <div key="2" data-grid={{ w: 2, h: 3, x: 2, y: 0 }}>
-            <TemperatureWidget />
+          <div key="2" data-grid={{ w: 6, h: 9, x: 2, y: 0 }}>
+            <AgroLineChart />
           </div>
           <div key="3" data-grid={{ w: 2, h: 3, x: 4, y: 0 }}>
             <TemperatureWidget />
@@ -145,7 +147,7 @@ export default class GridPro extends React.PureComponent {
             <TemperatureWidget />
           </div>
           <div key="5" data-grid={{ w: 2, h: 3, x: 8, y: 0 }}>
-            <TemperatureWidget />
+            <TestLineChart />
           </div>
         </ResponsiveReactGridLayout>
       </div>
