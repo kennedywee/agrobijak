@@ -4,8 +4,12 @@ import "/node_modules/react-resizable/css/styles.css";
 import RGL, { WidthProvider } from "react-grid-layout";
 import TemperatureWidget from "./TemperatureWidget";
 import AgroLineChart from "./AgroLineChart";
+import AgroGauge from "./AgroGauge";
+import AgroPercentage from "./AgroPercentage";
+import AgroSwitch from "./AgroSwitch";
 
 import _ from "lodash";
+import AgroIndicator from "./AgroIndicator";
 
 const ReactGridLayout = WidthProvider(RGL);
 const originalLayout = getFromLS("layout") || [];
@@ -158,9 +162,9 @@ let widgets = [
     moved: false,
     static: false,
     maxH: 10,
-    minH: 5,
-    maxW: 7,
-    minW: 3,
+    minH: 8,
+    maxW: 12,
+    minW: 7,
   },
   {
     id: 2,
@@ -175,11 +179,8 @@ let widgets = [
     i: 2,
     moved: false,
     static: false,
-    maxH: 3,
-    minH: 3,
-    maxW: 4,
-    minW: 4,
-    isResizable: false,
+
+    isResizable: true,
   },
   {
     id: 3,
@@ -258,12 +259,19 @@ export default class GridStorage extends Component {
         case "temperature":
           return (
             <div className="border bg-white" key={widget.i} data-grid={widget}>
-              <TemperatureWidget />
+              <div className="flex justify-center">
+                <h2>Arduino Uno | Light A</h2>
+              </div>
+
+              <AgroIndicator />
             </div>
           );
         case "linechart":
           return (
             <div className="border bg-white" key={widget.i} data-grid={widget}>
+              <div className="flex justify-center">
+                <h2>Arduino Uno | Light A</h2>
+              </div>
               <AgroLineChart deviceData={data} />
             </div>
           );

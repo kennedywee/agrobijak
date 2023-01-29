@@ -21,7 +21,7 @@ import { format, parseISO, subDays } from "date-fns";
 
 const AgroLineChart = ({ deviceData }) => {
   return (
-    <ResponsiveContainer className="border" width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="100%">
       <LineChart
         margin={{
           top: 5,
