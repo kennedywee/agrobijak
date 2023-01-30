@@ -13,6 +13,9 @@ import {
   DEVICE_UPDATE_SUCCESS,
   DEVICE_UPDATE_FAIL,
   DEVICE_UPDATE_RESET,
+  DEVICE_DELETE_REQUEST,
+  DEVICE_DELETE_SUCCESS,
+  DEVICE_DELETE_FAIL,
 } from "../constants/deviceConstants";
 
 export const deviceListReducers = (state = { devices: [] }, action) => {
@@ -79,6 +82,22 @@ export const deviceUpdateReducer = (state = { device: {} }, action) => {
 
     case DEVICE_UPDATE_RESET:
       return { device: {} };
+
+    default:
+      return state;
+  }
+};
+
+export const deviceDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DEVICE_DELETE_REQUEST:
+      return {};
+
+    case DEVICE_DELETE_SUCCESS:
+      return { success: true };
+
+    case DEVICE_UPDATE_FAIL:
+      return { error: action.payload };
 
     default:
       return state;

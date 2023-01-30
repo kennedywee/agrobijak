@@ -12,6 +12,7 @@ import {
   deviceDetailsReducers,
   deviceCreateReducer,
   deviceUpdateReducer,
+  deviceDeleteReducer,
 } from "./reducers/deviceReducers";
 
 import {
@@ -28,6 +29,7 @@ const reducer = combineReducers({
   deviceDetails: deviceDetailsReducers,
   deviceCreate: deviceCreateReducer,
   deviceUpdate: deviceUpdateReducer,
+  deviceDelete: deviceDeleteReducer,
   dataList: dataListReducers,
   dashboardData: dataDashboardReducers,
   widgetList: widgetListReducers,

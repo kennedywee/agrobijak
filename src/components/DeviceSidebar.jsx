@@ -13,11 +13,11 @@ const DeviceSidebar = ({ id, general, fields, token }) => {
           Device Fields
         </i>
       </Link>
-      <Link to={`/device/${id}/edit/tokens`}>
+      {/* <Link to={`/device/${id}/edit/tokens`}>
         <i className={`cursor-pointer ${token ? "text-amber-900" : ""}`}>
           Device Token
         </i>
-      </Link>
+      </Link> */}
     </ul>
   );
 };

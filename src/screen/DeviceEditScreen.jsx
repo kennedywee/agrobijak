@@ -1,6 +1,12 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateDevice,
+  listDeviceDetails,
+  deleteDevice,
+} from "../actions/deviceActions";
 
 import NavbarUser from "../components/NavbarUser";
 import Footer from "../components/Footer";
@@ -8,7 +14,58 @@ import DeviceSidebar from "../components/DeviceSidebar";
 
 const DeviceEditScreen = () => {
   let { id } = useParams();
+  const navigator = useNavigate();
+  const dispatch = useDispatch();
   const [enabled, setEnabled] = useState(false);
+
+  const deviceDetails = useSelector((state) => state.deviceDetails);
+  const { device } = deviceDetails;
+
+  useEffect(() => {
+    if (!device) {
+      dispatch(listDeviceDetails(id));
+    } else {
+      setType(device.device_type);
+      setName(device.name);
+      setLocation(device.location);
+      setDescription(device.description);
+      setEnabled(device.active);
+    }
+  }, [dispatch, id]);
+
+  const [type, setType] = useState("");
+  const [name, setName] = useState("");
+  const [location, setLocation] = useState("");
+  const [description, setDescription] = useState("");
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      updateDevice({
+        id: id,
+        name: name,
+        device_type: type,
+        location: location,
+        description: description,
+      })
+    );
+    navigate(redirect);
+  };
+
+  const deleteHandler = (id) => {
+    dispatch(deleteDevice(id));
+    navigator("/device");
+  };
+
+  const enableHandler = () => {
+    setEnabled(!enabled);
+    dispatch(
+      updateDevice({
+        id: id,
+        active: enabled,
+      })
+    );
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -30,11 +87,14 @@ const DeviceEditScreen = () => {
             </p>
           </div>
           <div>
-            <Link to="/device/edit">
-              <button className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900">
-                Disabled
-              </button>
-            </Link>
+            <button
+              onClick={enableHandler}
+              className={`${
+                enabled ? "bg-rose-900 text-gray-200" : "bg-gray-900 text-white"
+              } font-bold  rounded-md px-10 py-1`}
+            >
+              {enabled ? "Enabled" : "Disabled"}
+            </button>
           </div>
         </div>
 
@@ -45,97 +105,115 @@ const DeviceEditScreen = () => {
             </div>
           </div>
           <div className="flex-grow space-y-16">
-            <div className="border rounded-md shadow-md p-8">
-              <h3 className="font-medium text-xl mb-4">General Information</h3>
-              <hr />
-              <p className="text-gray-700 mt-4">
-                Ensure that you input the right types and a distinct name to
-                identify your device in the device list section.
-              </p>
+            <form className="space-y-16" onSubmit={submitHandler}>
+              <div className="border rounded-md shadow-md p-8">
+                <h3 className="font-medium text-xl mb-4">
+                  General Information
+                </h3>
+                <hr />
+                <p className="text-gray-700 mt-4">
+                  Ensure that you input the right types and a distinct name to
+                  identify your device in the device list section.
+                </p>
 
-              <div className="flex space-x-10 mt-4">
-                <div className="flex flex-col w-2/6">
-                  <label
-                    className="text-gray-700 font-semibold"
-                    htmlFor="deviceName"
-                  >
-                    Device Type
-                  </label>
-                  <input
-                    type="text"
-                    name="deviceName"
-                    placeholder="Arduino Uno Rev3"
-                    className="focus:outline-none border rounded-md py-1 px-4"
-                  />
+                <div className="flex space-x-10 mt-4">
+                  <div className="flex flex-col w-2/6">
+                    <label
+                      className="text-gray-700 font-semibold"
+                      htmlFor="deviceType"
+                    >
+                      Device Type {type}
+                    </label>
+                    <input
+                      type="text"
+                      name="deviceType"
+                      value={type}
+                      onChange={(e) => setType(e.target.value)}
+                      placeholder="Eg.. Arduino Uno Rev3, ESP32, etc"
+                      className="focus:outline-none border rounded-md py-1 px-4"
+                    />
+                  </div>
+
+                  <div className="flex flex-col w-2/6">
+                    <label
+                      className="text-gray-700 font-semibold"
+                      htmlFor="deviceName"
+                    >
+                      Device Name
+                    </label>
+                    <input
+                      type="text"
+                      name="deviceName"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Eg.. Arduino Uno Rev3, ESP32, etc"
+                      className="focus:outline-none border rounded-md py-1 px-4"
+                    />
+                  </div>
                 </div>
-
-                <div className="flex flex-col w-2/6">
-                  <label
-                    className="text-gray-700 font-semibold"
-                    htmlFor="deviceName"
+                <div className="mt-10">
+                  <button
+                    type="submit"
+                    className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900"
                   >
-                    Device Name
-                  </label>
-                  <input
-                    type="text"
-                    name="deviceName"
-                    placeholder="Arduno Uno Rev3 Room A"
-                    className="focus:outline-none border rounded-md py-1 px-4"
-                  />
-                </div>
-              </div>
-              <div className="mt-10">
-                <button className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900">
-                  Save and Next
-                </button>
-              </div>
-            </div>
-
-            <div className="border rounded-md shadow-md p-8">
-              <h3 className="font-medium text-xl mb-4">Meta Data</h3>
-              <hr />
-              <p className="text-gray-700 mt-4">
-                Ensure that you input the right types and a distinct name to
-                identify your device in the device list section.
-              </p>
-
-              <div className="flex flex-col space-y-10 mt-4">
-                <div className="flex flex-col w-4/6">
-                  <label
-                    className="text-gray-700 font-semibold"
-                    htmlFor="deviceName"
-                  >
-                    Location
-                  </label>
-                  <input
-                    type="text"
-                    name="deviceName"
-                    placeholder="Eg.. Arduino Uno Rev3, ESP32, etc"
-                    className="focus:outline-none border rounded-md py-1 px-4"
-                  />
-                </div>
-
-                <div className="flex flex-col w-4/6">
-                  <label
-                    className="text-gray-700 font-semibold"
-                    htmlFor="deviceName"
-                  >
-                    Description
-                  </label>
-                  <textarea
-                    type="textarea"
-                    name="deviceName"
-                    placeholder="Eg.. Arduino Uno Rev3, ESP32, etc"
-                    className="focus:outline-none h-[150px] border rounded-md py-1 px-4"
-                  />
+                    Save Changes
+                  </button>
                 </div>
               </div>
-              <div className="mt-10">
-                <button className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900">
-                  Save and Next
-                </button>
+
+              <div className="border rounded-md shadow-md p-8">
+                <h3 className="font-medium text-xl mb-4">Meta Data</h3>
+                <hr />
+                <p className="text-gray-700 mt-4">
+                  Ensure that you input the right types and a distinct name to
+                  identify your device in the device list section.
+                </p>
+
+                <div className="flex flex-col space-y-10 mt-4">
+                  <div className="flex flex-col w-4/6">
+                    <label
+                      className="text-gray-700 font-semibold"
+                      htmlFor="deviceLocation"
+                    >
+                      Location
+                    </label>
+                    <input
+                      type="text"
+                      name="deviceLocation"
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                      placeholder="Eg.. Penampang, Sabah"
+                      className="focus:outline-none border rounded-md py-1 px-4"
+                    />
+                  </div>
+
+                  <div className="flex flex-col w-4/6">
+                    <label
+                      className="text-gray-700 font-semibold"
+                      htmlFor="deviceDescription"
+                    >
+                      Description
+                    </label>
+                    <textarea
+                      type="textarea"
+                      name="deviceDescription"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      placeholder="Write the description of the device"
+                      className="focus:outline-none h-[150px] border rounded-md py-1 px-4"
+                    />
+                  </div>
+                </div>
+                <div className="mt-10">
+                  <button
+                    type="submit"
+                    className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900"
+                  >
+                    Save Changes
+                  </button>
+                </div>
               </div>
-            </div>
+            </form>
 
             <div className="border border-red-700 rounded-md shadow-md p-8">
               <h3 className="font-medium text-xl mb-4">
@@ -149,7 +227,10 @@ const DeviceEditScreen = () => {
               </p>
 
               <div className="mt-10">
-                <button className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900">
+                <button
+                  onClick={() => deleteHandler(id)}
+                  className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900"
+                >
                   Delete Device
                 </button>
               </div>

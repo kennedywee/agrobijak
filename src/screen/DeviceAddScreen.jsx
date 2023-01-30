@@ -13,7 +13,7 @@ const DeviceAddScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const redirect = "/device/add/metadata";
+  const redirect = "/device";
 
   const [type, setType] = useState("");
   const [name, setName] = useState("");
@@ -30,6 +30,22 @@ const DeviceAddScreen = () => {
   const [field3, setField3] = useState("");
   const [field4, setField4] = useState("");
   const [field5, setField5] = useState("");
+
+  // const [type, setType] = useState("");
+  // const [name, setName] = useState(device.name);
+  // const [location, setLocation] = useState(device.location);
+  // const [description, setDescription] = useState(device.description);
+  // const [type1, setType1] = useState(device.type_field1);
+  // const [type2, setType2] = useState(device.type_field2);
+  // const [type3, setType3] = useState(device.type_field3);
+  // const [type4, setType4] = useState(device.type_field4);
+  // const [type5, setType5] = useState(device.type_field5);
+
+  // const [field1, setField1] = useState(device.field1);
+  // const [field2, setField2] = useState(device.field2);
+  // const [field3, setField3] = useState(device.field3);
+  // const [field4, setField4] = useState(device.field4);
+  // const [field5, setField5] = useState(device.field5);
 
   const deviceCreate = useSelector((state) => state.deviceCreate);
   const { error, loading, device } = deviceCreate;
