@@ -7,7 +7,7 @@ import "./index.css";
 window.global ||= window;
 
 import axios from "axios";
-axios.defaults.baseURL = `http://kennedywee.pythonanywhere.com/`;
+axios.defaults.baseURL = `https://kennedywee.pythonanywhere.com/`;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
