@@ -10,6 +10,7 @@ import { useEffect } from "react";
 
 import { listDevices } from "../actions/deviceActions";
 import { dashboardData } from "../actions/dataActions";
+import { listWidgets, updateWidget } from "../actions/widgetActions";
 import { useDispatch, useSelector } from "react-redux";
 
 import AgroGauge from "./AgroGauge";
@@ -18,8 +19,6 @@ import AgroLineChart from "./AgroLineChart";
 import AgroPercentage from "./AgroPercentage";
 import AgroSwitch from "./AgroSwitch";
 import AgroTemp from "./AgroTemp";
-
-import widgets from "../constants/widgets.json";
 
 const AgroGrid = ({
   className = "layout",
@@ -30,6 +29,9 @@ const AgroGrid = ({
 }) => {
   const dispatch = useDispatch();
   const [layout, setLayout] = useState([]);
+
+  const widgetList = useSelector((state) => state.widgetList);
+  const { widgets } = widgetList;
 
   const deviceList = useSelector((state) => state.deviceList);
   const { devices } = deviceList;
@@ -43,7 +45,12 @@ const AgroGrid = ({
 
   const onLayoutChangeHandler = (newLayout) => {
     setLayout(newLayout);
-    console.log(newLayout);
+    if (layout) {
+      _.map(layout, (item) => {
+        console.log(item);
+        dispatch(updateWidget(item));
+      });
+    }
   };
 
   const components = {
@@ -71,6 +78,7 @@ const AgroGrid = ({
   useEffect(() => {
     dispatch(listDevices());
     dispatch(dashboardData());
+    dispatch(listWidgets());
   }, [dispatch]);
 
   return (

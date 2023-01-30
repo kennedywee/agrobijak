@@ -37,7 +37,7 @@ const AgroGauge = ({ widget, devices, dData }) => {
         nrOfLevels={420}
         arcsLength={[0.5, 0.3, 0.2]}
         colors={["#5BE12C", "#F5CD19", "#EA4228"]}
-        percent={0.37}
+        percent={value}
         arcPadding={0.02}
         textColor="#000000"
         formatTextValue={(value) => value + " °C"}
