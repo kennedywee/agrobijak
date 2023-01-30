@@ -59,7 +59,7 @@ const DeviceDetailScreen = () => {
           </div>
 
           <div>
-            <Link to="/device/edit">
+            <Link to={`/device/${id}/edit/`}>
               <button className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900">
                 Settings
               </button>

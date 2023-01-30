@@ -14,6 +14,8 @@ import DeviceAddScreen from "./screen/DeviceAddScreen.jsx";
 import DeviceAddMetaScreen from "./screen/DeviceAddMetaScreen.jsx";
 import DeviceAddFieldScreen from "./screen/DeviceAddFieldScreen.jsx";
 import DeviceEditScreen from "./screen/DeviceEditScreen.jsx";
+import DeviceEditFieldScreen from "./screen/DeviceEditFieldScreen.jsx";
+import DeviceEditTokenScreen from "./screen/DeviceEditTokenScreen.jsx";
 import ProfileScreen from "./screen/ProfileScreen.jsx";
 
 function App() {
@@ -54,7 +56,17 @@ function App() {
           element={<DeviceAddFieldScreen />}
         />
         <Route exact path="/device/:id" element={<DeviceDetailScreen />} />
-        <Route exact path="/device/edit" element={<DeviceEditScreen />} />
+        <Route exact path="/device/:id/edit/" element={<DeviceEditScreen />} />
+        <Route
+          exact
+          path="/device/:id/edit/fields"
+          element={<DeviceEditFieldScreen />}
+        />
+        <Route
+          exact
+          path="/device/:id/edit/tokens"
+          element={<DeviceEditTokenScreen />}
+        />
       </Routes>
     </BrowserRouter>
   );
