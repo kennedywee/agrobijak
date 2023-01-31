@@ -3,15 +3,15 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { listDevices } from "../actions/deviceActions";
+import { listDevices } from "../../actions/deviceActions";
 
 import _ from "lodash";
 
 // Header and Footer
-import NavbarUser from "../components/NavbarUser";
-import Footer from "../components/Footer";
+import NavbarUser from "../../components/NavbarUser";
+import Footer from "../../components/Footer";
 
-import Device from "../components/Device";
+import Device from "../../components/Device";
 
 // Material UI Icons
 import SearchIcon from "@mui/icons-material/Search";

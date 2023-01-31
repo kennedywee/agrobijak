@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
 
-import NavbarUser from "../components/NavbarUser";
-import Footer from "../components/Footer";
+import NavbarUser from "../../components/NavbarUser";
+import Footer from "../../components/Footer";
+
+import Schedule from "../../components/Schedule";
 
 // Material UI Icons
 import SearchIcon from "@mui/icons-material/Search";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
-import Alert from "../components/Alert";
-
-const AlertScreen = () => {
+const ScheduleScreen = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <NavbarUser alert />
+      <NavbarUser schedule />
 
       <div className="container w-full">
         <div className="flex items-center justify-between space-x-4">
@@ -34,12 +34,12 @@ const AlertScreen = () => {
           </div>
         </div>
 
-        {/* alert in Grid */}
+        {/* Schedule in Grid */}
         <div className="justify-center py-10">
           <div className="grid grid-cols-3 gap-12">
-            <Alert />
-            <Alert />
-            <Alert />
+            <Schedule />
+            <Schedule />
+            <Schedule />
           </div>
         </div>
       </div>
@@ -51,4 +51,4 @@ const AlertScreen = () => {
   );
 };
 
-export default AlertScreen;
+export default ScheduleScreen;

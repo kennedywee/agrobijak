@@ -1,6 +1,4 @@
-import GridPro from "../components/GridPro";
 import AgroGrid from "../widgets/AgroGrid";
-import GridStorage from "../widgets/GridStorage";
 import NavbarUser from "../components/NavbarUser";
 import Footer from "../components/Footer";
 

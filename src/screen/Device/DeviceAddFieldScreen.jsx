@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import NavbarUser from "../components/NavbarUser";
-import Footer from "../components/Footer";
+import NavbarUser from "../../components/NavbarUser";
+import Footer from "../../components/Footer";
 
-import DeviceSidebar from "../components/DeviceSidebar";
+import DeviceSidebar from "../../components/DeviceSidebar";
 
 const DeviceAddFieldScreen = () => {
   return (

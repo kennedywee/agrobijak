@@ -20,6 +20,11 @@ import {
   dataDashboardReducers,
 } from "./reducers/dataReducers";
 
+import {
+  alertListReducers,
+  alertCreateReducer,
+} from "./reducers/alertReducers";
+
 import { widgetListReducers } from "./reducers/widgetReducers";
 
 const reducer = combineReducers({
@@ -33,10 +38,16 @@ const reducer = combineReducers({
   dataList: dataListReducers,
   dashboardData: dataDashboardReducers,
   widgetList: widgetListReducers,
+  alertList: alertListReducers,
+  alertCreate: alertCreateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
+  : null;
+
+const myDeviceFromStorage = localStorage.getItem("myDevice")
+  ? JSON.parse(localStorage.getItem("myDevice"))
   : null;
 
 const initialState = {

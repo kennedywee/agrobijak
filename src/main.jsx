@@ -5,9 +5,11 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 window.global ||= window;
-
 import axios from "axios";
-axios.defaults.baseURL = `https://kennedywee.pythonanywhere.com/`;
+
+const localURL = "http://127.0.0.1:8000/";
+const hostedURL = "https://kennedywee.pythonanywhere.com/";
+axios.defaults.baseURL = localURL;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

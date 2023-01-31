@@ -1,6 +1,6 @@
 [
   {
-    "id": "1",
+    "id": 1,
     "name": "Arduino Uno Rev3",
     "location": "Putatan, Sabah",
     "field1": "Temperature",
@@ -20,7 +20,7 @@
     "active": "0"
   },
   {
-    "id": "2",
+    "id": 2,
     "name": "Arduino Uno Rev2",
     "location": "Penampang, Sabah",
     "field1": "Temperature",
@@ -41,7 +41,7 @@
   },
 
   {
-    "id": "3",
+    "id": 3,
     "name": "Arduino Uno Rev6",
     "location": "Penampang, Sabah",
     "field1": "Temperature",
@@ -62,7 +62,7 @@
   },
 
   {
-    "id": "4",
+    "id": 4,
     "name": "Arduino Uno Rev6",
     "location": "Penampang, Sabah",
     "field1": "Temperature",

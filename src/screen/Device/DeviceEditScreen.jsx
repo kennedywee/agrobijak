@@ -6,11 +6,11 @@ import {
   updateDevice,
   listDeviceDetails,
   deleteDevice,
-} from "../actions/deviceActions";
+} from "../../actions/deviceActions";
 
-import NavbarUser from "../components/NavbarUser";
-import Footer from "../components/Footer";
-import DeviceSidebar from "../components/DeviceSidebar";
+import NavbarUser from "../../components/NavbarUser";
+import Footer from "../../components/Footer";
+import DeviceSidebar from "../../components/DeviceSidebar";
 
 const DeviceEditScreen = () => {
   let { id } = useParams();

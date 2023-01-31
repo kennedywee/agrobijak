@@ -4,19 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 
 import _ from "lodash";
 
-import NavbarUser from "../components/NavbarUser";
-import Footer from "../components/Footer";
+import NavbarUser from "../../components/NavbarUser";
+import Footer from "../../components/Footer";
 
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
-import { devicephoto } from "../assets";
+import { devicephoto } from "../../assets";
 
-import { listDeviceDetails } from "../actions/deviceActions";
-import { listData } from "../actions/dataActions";
+import { listDeviceDetails } from "../../actions/deviceActions";
+import { listData } from "../../actions/dataActions";
 
-import DaysAgo from "../components/DaysAgo.jsx";
-import DataListTable from "../components/DataListTable";
-import NoDataList from "../components/NoDataList";
+import DaysAgo from "../../components/DaysAgo.jsx";
+import DataListTable from "../../components/DataListTable";
+import NoDataList from "../../components/NoDataList";
 
 const DeviceDetailScreen = () => {
   let { id } = useParams();

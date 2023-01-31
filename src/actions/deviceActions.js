@@ -41,6 +41,7 @@ export const listDevices = () => async (dispatch, getState) => {
       type: DEVICE_LIST_SUCCESS,
       payload: data,
     });
+    localStorage.setItem("myDevice", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: DEVICE_LIST_FAIL,

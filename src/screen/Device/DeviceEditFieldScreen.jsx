@@ -2,11 +2,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateDevice, listDeviceDetails } from "../actions/deviceActions";
+import { updateDevice } from "../../actions/deviceActions";
 
-import NavbarUser from "../components/NavbarUser";
-import Footer from "../components/Footer";
-import DeviceSidebar from "../components/DeviceSidebar";
+import NavbarUser from "../../components/NavbarUser";
+import Footer from "../../components/Footer";
+import DeviceSidebar from "../../components/DeviceSidebar";
 
 const DeviceEditFieldScreen = () => {
   let { id } = useParams();

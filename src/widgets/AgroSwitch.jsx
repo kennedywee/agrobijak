@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Switch } from "@headlessui/react";
+import axios from "axios";
 
 const AgroSwitch = ({ widget, devices, dData }) => {
   const id = widget.device;

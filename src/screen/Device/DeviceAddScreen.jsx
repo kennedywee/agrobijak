@@ -2,12 +2,10 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import NavbarUser from "../components/NavbarUser";
-import Footer from "../components/Footer";
+import NavbarUser from "../../components/NavbarUser";
+import Footer from "../../components/Footer";
 
-import DeviceSidebar from "../components/DeviceSidebar";
-
-import { createDevice } from "../actions/deviceActions";
+import { createDevice } from "../../actions/deviceActions";
 
 const DeviceAddScreen = () => {
   const navigate = useNavigate();
