@@ -102,8 +102,8 @@ const AlertEditScreen = () => {
   };
 
   const deleteHandler = (id) => {
-    dispatch(deleteDevice(id));
-    navigator("/device");
+    dispatch(deleteAlert(id));
+    navigator("/alert");
   };
 
   const enableHandler = () => {
