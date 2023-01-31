@@ -22,7 +22,10 @@ import {
 
 import {
   alertListReducers,
+  alertDetailsReducers,
   alertCreateReducer,
+  alertUpdateReducer,
+  alertDeleteReducer,
 } from "./reducers/alertReducers";
 
 import { widgetListReducers } from "./reducers/widgetReducers";
@@ -30,16 +33,22 @@ import { widgetListReducers } from "./reducers/widgetReducers";
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducers,
+
   deviceList: deviceListReducers,
   deviceDetails: deviceDetailsReducers,
   deviceCreate: deviceCreateReducer,
   deviceUpdate: deviceUpdateReducer,
   deviceDelete: deviceDeleteReducer,
+
   dataList: dataListReducers,
   dashboardData: dataDashboardReducers,
   widgetList: widgetListReducers,
+
   alertList: alertListReducers,
+  alertDetails: alertDetailsReducers,
   alertCreate: alertCreateReducer,
+  alertUpdate: alertUpdateReducer,
+  alertDelete: alertDeleteReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

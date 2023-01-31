@@ -15,14 +15,13 @@ const AlertAddScreen = () => {
   const navigator = useNavigate();
   const dispatch = useDispatch();
 
-  const [fieldList, setFieldList] = useState([]);
-
   const [name, setName] = useState("");
   const [device, setDevice] = useState("");
   const [field, setField] = useState("");
   const [conditionValue, setConditionValue] = useState("");
   const [message, setMessage] = useState("");
   const [frequency, setFrequency] = useState(false);
+  const [fieldList, setFieldList] = useState([]);
 
   const devices = JSON.parse(localStorage.getItem("myDevice"));
 
@@ -75,7 +74,7 @@ const AlertAddScreen = () => {
         field: field,
       })
     );
-    navigate("/alert");
+    navigator("/alert");
   };
 
   return (

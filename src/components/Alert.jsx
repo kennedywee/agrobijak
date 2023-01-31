@@ -17,7 +17,7 @@ const Alert = ({ alert }) => {
 
   return (
     <div>
-      <Link to={`/alert/1`}>
+      <Link to={`/alert/${alert.id}`}>
         <div className="flex items-center justify-between">
           <div className="flex">
             <NotificationsActiveIcon className="mr-2" sx={{ fontSize: 50 }} />

@@ -21,8 +21,10 @@ const DeviceEditScreen = () => {
   const deviceDetails = useSelector((state) => state.deviceDetails);
   const { device } = deviceDetails;
 
+  console.log(device);
+
   useEffect(() => {
-    if (!device) {
+    if (device.length === 0) {
       dispatch(listDeviceDetails(id));
     } else {
       setType(device.device_type);

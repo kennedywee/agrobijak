@@ -2,62 +2,103 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  updateDevice,
-  listDeviceDetails,
-  deleteDevice,
-} from "../../actions/deviceActions";
 
-import alerts from "../../mockdata/alerts.json";
+import {
+  updateAlert,
+  listAlertDetails,
+  deleteAlert,
+} from "../../actions/alertActions";
 
 import NavbarUser from "../../components/NavbarUser";
 import Footer from "../../components/Footer";
 import AlertSidebar from "../../components/AlertSidebar";
+import UAWrapper from "../../components/UAWrapper";
+import UAWrapperContent from "../../components/UAWrapperContent";
+import { ALERT_UPDATE_RESET } from "../../constants/alertConstants";
 
 const AlertEditScreen = () => {
   let { id } = useParams();
   const navigator = useNavigate();
   const dispatch = useDispatch();
 
-  const [enabled, setEnabled] = useState(false);
   const [name, setName] = useState("");
   const [device, setDevice] = useState("");
   const [field, setField] = useState("");
-  const [checkingType, setCheckingType] = useState("");
+  const [conditionValue, setConditionValue] = useState("");
   const [message, setMessage] = useState("");
-  const [frequency, setFrequency] = useState("");
+  const [frequency, setFrequency] = useState(false);
   const [active, setActive] = useState("");
+  const [fieldList, setFieldList] = useState([]);
 
-  const alert = alerts.filter((item) => {
-    return item.id === id;
-  });
+  const devices = JSON.parse(localStorage.getItem("myDevice"));
+
+  const alertDetails = useSelector((state) => state.alertDetails);
+  const { alert } = alertDetails;
+
+  const alertUpdate = useSelector((state) => state.alertUpdate);
+  const { success } = alertUpdate;
+
+  const uniqueDevices = [
+    ...new Set(devices.map((item) => ({ id: item.id, name: item.name }))),
+  ];
+
+  const onChangeDeviceHandler = (e) => {
+    setDevice(e.target.value);
+    const selected = parseInt(e.target.value);
+    autoFillDevice(selected);
+  };
+
+  const autoFillDevice = (selected) => {
+    const deviceID = Number(selected);
+    let selectedDevice = devices.find((device) => device.id === deviceID);
+
+    setFieldList(
+      [0, 1, 2, 3, 4].map((index) => ({
+        fieldKey: Object.keys(selectedDevice).slice(5, 10)[index],
+        fieldValue: Object.values(selectedDevice).slice(5, 10)[index],
+      }))
+    );
+  };
 
   useEffect(() => {
-    if (!alert) {
-      console.log("There is no alert!");
+    console.log(success);
+    if (success) {
+      dispatch({ type: ALERT_UPDATE_RESET });
+      navigator("/alert");
+      console.log("here");
     } else {
-      setName(alert.name);
-      setDevice(alert.device);
-      setCheckingType(alert.checkingType);
-      setMessage(alert.message);
-      setFrequency(alert.frequency);
-      setActive(alert.active);
+      if (!alert.name || alert.id !== Number(id)) {
+        dispatch(listAlertDetails(id));
+      } else {
+        setName(alert.name);
+        setDevice(alert.device);
+        setField(alert.field);
+        setConditionValue(alert.condition_value);
+        setMessage(alert.message);
+        setFrequency(alert.frequency);
+        setActive(alert.active);
+
+        autoFillDevice(alert.device);
+      }
     }
-  }, [dispatch, id]);
+  }, [dispatch, alert, id, success, device]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-
-    // dispatch(
-    //   updateDevice({
-    //     id: id,
-    //     name: name,
-    //     device_type: type,
-    //     location: location,
-    //     description: description,
-    //   })
-    // );
-    navigate(redirect);
+    console.log(device);
+    console.log(field);
+    dispatch(
+      updateAlert({
+        id: id,
+        name: name,
+        device: device,
+        field: field,
+        condition_value: conditionValue,
+        message: message,
+        frequency: frequency,
+        active: active,
+      })
+    );
   };
 
   const deleteHandler = (id) => {
@@ -105,246 +146,145 @@ const AlertEditScreen = () => {
           </div>
           <div className="flex-grow space-y-16">
             <form className="space-y-16" onSubmit={submitHandler}>
-              <div className="border rounded-md shadow-md p-8">
-                <h3 className="font-medium text-xl mb-4">
-                  General Information
-                </h3>
-                <hr />
-                <p className="text-gray-700 mt-4">
-                  Ensure that you input the right types and a distinct name to
-                  identify your device in the device list section.
-                </p>
+              <UAWrapper
+                title="General Information"
+                description="Ensure that you input the right types and a distinct name to identify your device in the device list section."
+              >
+                <UAWrapperContent>
+                  <label className="text-gray-700 font-semibold" htmlFor="name">
+                    Alert Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter your alert name"
+                    className="focus:outline-none border rounded-md py-1 px-4"
+                  />
+                </UAWrapperContent>
+              </UAWrapper>
 
-                <div className="flex space-x-10 mt-4">
-                  <div className="flex flex-col w-2/6">
-                    <label
-                      className="text-gray-700 font-semibold"
-                      htmlFor="deviceType"
-                    >
-                      Alert Name
-                    </label>
-                    <input
-                      type="text"
-                      name="deviceType"
-                      value={device}
-                      onChange={(e) => setDevice(e.target.value)}
-                      placeholder="Enter your alert name"
-                      className="focus:outline-none border rounded-md py-1 px-4"
-                    />
-                  </div>
-                </div>
-                <div className="mt-10">
+              <UAWrapper
+                title="Condition Check"
+                description="Ensure that you input the right types and a distinct name to identify your device in the device list section."
+              >
+                <UAWrapperContent>
+                  <label
+                    className="text-gray-700 font-semibold"
+                    htmlFor="device"
+                  >
+                    Target Device
+                  </label>
+                  <select
+                    type="text"
+                    name="device"
+                    value={device}
+                    onChange={onChangeDeviceHandler}
+                    className="focus:outline-none border rounded-md py-1 px-4"
+                  >
+                    {uniqueDevices.map((device) => (
+                      <option key={device.id} value={device.id}>
+                        {device.name}
+                      </option>
+                    ))}
+                  </select>
+                </UAWrapperContent>
+
+                <UAWrapperContent>
+                  <label
+                    className="text-gray-700 font-semibold"
+                    htmlFor="field"
+                  >
+                    Target Field
+                  </label>
+                  <select
+                    type="text"
+                    name="field"
+                    value={field}
+                    onChange={(e) => setField(e.target.value)}
+                    className="focus:outline-none border rounded-md py-1 px-4"
+                  >
+                    {fieldList.map((field) => (
+                      <option key={field.fieldKey} value={field.fieldKey}>
+                        {field.fieldKey} | {field.fieldValue}
+                      </option>
+                    ))}
+                  </select>
+                </UAWrapperContent>
+
+                <UAWrapperContent>
+                  <label
+                    className="text-gray-700 font-semibold"
+                    htmlFor="field"
+                  >
+                    Condition Value (String)
+                  </label>
+                  <input
+                    type="text"
+                    name="field"
+                    value={conditionValue}
+                    onChange={(e) => setConditionValue(e.target.value)}
+                    placeholder="Consists the value of.."
+                    className="focus:outline-none border rounded-md py-1 px-4"
+                  ></input>
+                </UAWrapperContent>
+              </UAWrapper>
+
+              <UAWrapper
+                title="Alert Type and Message"
+                description="Ensure that you input the right types and a distinct name to identify your device in the device list section."
+              >
+                <UAWrapperContent>
+                  <label
+                    className="text-gray-700 font-semibold"
+                    htmlFor="frequency"
+                  >
+                    Alert Frequency
+                  </label>
+
+                  <select
+                    type="text"
+                    name="frequency"
+                    value={frequency}
+                    onChange={(e) => setFrequency(e.target.value)}
+                    className="focus:outline-none border rounded-md py-1 px-4"
+                  >
+                    <option value="false">Once</option>
+                    <option value="true">Each Time</option>
+                  </select>
+
+                  <label
+                    className="text-gray-700 font-semibold"
+                    htmlFor="message"
+                  >
+                    Message Content
+                  </label>
+                  <textarea
+                    type="textarea"
+                    name="message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Eg.. Arduino Uno Rev3, ESP32, etc"
+                    className="focus:outline-none h-[150px] border rounded-md py-1 px-4"
+                  />
+                </UAWrapperContent>
+              </UAWrapper>
+
+              <UAWrapper
+                title="Save Alert"
+                description="Ensure that all details are correct!"
+                borderColor="yellow"
+              >
+                <UAWrapperContent>
                   <button
                     type="submit"
-                    className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900"
+                    className="font-bold text-gray-200 rounded-md px-5 py-1 bg-rose-900"
                   >
                     Save Changes
                   </button>
-                </div>
-              </div>
-
-              <div className="border rounded-md shadow-md p-8">
-                <h3 className="font-medium text-xl mb-4">Condition Check</h3>
-                <hr />
-                <p className="text-gray-700 mt-4">
-                  Ensure that you input the right types and a distinct name to
-                  identify your device in the device list section.
-                </p>
-
-                <div className="flex space-x-10 mt-4">
-                  <div className="flex flex-col w-2/6">
-                    <label
-                      className="text-gray-700 font-semibold"
-                      htmlFor="deviceName"
-                    >
-                      Target Device
-                    </label>
-                    <select
-                      type="text"
-                      name="deviceType2"
-                      className="focus:outline-none border rounded-md py-1 px-4"
-                    >
-                      <option value="data">Data Field</option>
-                      <option value="temperature">Temperature Sensor</option>
-                      <option value="soil">Soil Sensor</option>
-                      <option value="humidity">Humidity Sensor</option>
-                      <option value="relay">Relay</option>
-                    </select>
-                  </div>
-
-                  <div className="flex flex-col w-2/6">
-                    <label
-                      className="text-gray-700 font-semibold"
-                      htmlFor="deviceName"
-                    >
-                      Target Field
-                    </label>
-                    <select
-                      type="text"
-                      name="deviceType2"
-                      className="focus:outline-none border rounded-md py-1 px-4"
-                    >
-                      <option value="data">Data Field</option>
-                      <option value="temperature">Temperature Sensor</option>
-                      <option value="soil">Soil Sensor</option>
-                      <option value="humidity">Humidity Sensor</option>
-                      <option value="relay">Relay</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="flex space-x-10 mt-4">
-                  <div className="flex flex-col w-2/6">
-                    <label
-                      className="text-gray-700 font-semibold"
-                      htmlFor="deviceName"
-                    >
-                      Condition Type
-                    </label>
-                    <select
-                      type="text"
-                      name="deviceType2"
-                      className="focus:outline-none border rounded-md py-1 px-4"
-                    >
-                      <option value="contains">contains</option>
-                      <option value="contains">greater than</option>
-                    </select>
-                  </div>
-
-                  <div className="flex flex-col w-2/6">
-                    <label
-                      className="text-gray-700 font-semibold"
-                      htmlFor="deviceName"
-                    >
-                      Check Value
-                    </label>
-                    <input
-                      type="text"
-                      name="deviceType"
-                      value={device}
-                      onChange={(e) => setDevice(e.target.value)}
-                      placeholder="Enter your alert name"
-                      className="focus:outline-none border rounded-md py-1 px-4"
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-10">
-                  <button
-                    type="submit"
-                    className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900"
-                  >
-                    Save Changes
-                  </button>
-                </div>
-              </div>
-
-              <div className="border rounded-md shadow-md p-8">
-                <h3 className="font-medium text-xl mb-4">
-                  Alert Type and Message
-                </h3>
-                <hr />
-                <p className="text-gray-700 mt-4">
-                  Ensure that you input the right types and a distinct name to
-                  identify your device in the device list section.
-                </p>
-
-                <div className="flex flex-col space-y-10 mt-4">
-                  <div className="flex flex-col w-4/6">
-                    <label
-                      className="text-gray-700 font-semibold"
-                      htmlFor="deviceName"
-                    >
-                      Alert Frequency
-                    </label>
-                    <select
-                      type="text"
-                      name="deviceType2"
-                      className="focus:outline-none border rounded-md py-1 px-4"
-                    >
-                      <option value="false">Once</option>
-                      <option value="true">Each Time</option>
-                    </select>
-                  </div>
-
-                  <div className="flex flex-col w-4/6">
-                    <label
-                      className="text-gray-700 font-semibold"
-                      htmlFor="deviceName"
-                    >
-                      Message Content
-                    </label>
-                    <textarea
-                      type="textarea"
-                      name="deviceDescription"
-                      placeholder="Eg.. Arduino Uno Rev3, ESP32, etc"
-                      className="focus:outline-none h-[150px] border rounded-md py-1 px-4"
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-10">
-                  <button
-                    type="submit"
-                    className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900"
-                  >
-                    Save Changes
-                  </button>
-                </div>
-              </div>
-
-              {/* <div className="border rounded-md shadow-md p-8">
-                <h3 className="font-medium text-xl mb-4">Meta Data</h3>
-                <hr />
-                <p className="text-gray-700 mt-4">
-                  Ensure that you input the right types and a distinct name to
-                  identify your device in the device list section.
-                </p>
-
-                <div className="flex flex-col space-y-10 mt-4">
-                  <div className="flex flex-col w-4/6">
-                    <label
-                      className="text-gray-700 font-semibold"
-                      htmlFor="deviceLocation"
-                    >
-                      Location
-                    </label>
-                    <input
-                      type="text"
-                      name="deviceLocation"
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                      placeholder="Eg.. Penampang, Sabah"
-                      className="focus:outline-none border rounded-md py-1 px-4"
-                    />
-                  </div>
-
-                  <div className="flex flex-col w-4/6">
-                    <label
-                      className="text-gray-700 font-semibold"
-                      htmlFor="deviceDescription"
-                    >
-                      Description
-                    </label>
-                    <textarea
-                      type="textarea"
-                      name="deviceDescription"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      placeholder="Write the description of the device"
-                      className="focus:outline-none h-[150px] border rounded-md py-1 px-4"
-                    />
-                  </div>
-                </div>
-                <div className="mt-10">
-                  <button
-                    type="submit"
-                    className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900"
-                  >
-                    Save Changes
-                  </button>
-                </div>
-              </div> */}
+                </UAWrapperContent>
+              </UAWrapper>
             </form>
 
             <div className="border border-red-700 rounded-md shadow-md p-8">
