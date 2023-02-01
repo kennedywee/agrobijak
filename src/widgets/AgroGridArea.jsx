@@ -42,7 +42,11 @@ const AgroGridArea = ({ widgets, devices, data }) => {
     _.map(widgets, (widget) => {
       const Component = components[widget.type] || "span";
       return (
-        <div className="border bg-white" key={widget.i} data-grid={widget}>
+        <div
+          className="border bg-white py-1 px-2"
+          key={widget.i}
+          data-grid={widget}
+        >
           {typeof Component === "string" ? (
             <div>
               <span>Create New Widget</span>
@@ -56,7 +60,6 @@ const AgroGridArea = ({ widgets, devices, data }) => {
 
   return (
     <div>
-      <h1>Hello</h1>
       <AgroGridPro
         className="layout"
         cols={12}

@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { Switch } from "@headlessui/react";
-import axios from "axios";
+
+import { useDispatch } from "react-redux";
+import { createData } from "../actions/dataActions";
 
 const AgroSwitch = ({ widget, devices, dData }) => {
+  const dispatch = useDispatch();
   const id = widget.device;
   const device = devices.find((e) => e.id === id);
 
@@ -28,15 +31,27 @@ const AgroSwitch = ({ widget, devices, dData }) => {
 
   const [enabled, setEnabled] = useState(field === 1 ? true : false);
 
+  const handleChange = useCallback(() => {
+    setEnabled(!enabled);
+    console.log(!enabled);
+    dispatch(
+      createData({
+        device: device,
+        fieldStr: fieldStr,
+        fieldValue: !enabled,
+      })
+    );
+  });
+
   return (
     <div className="w-full h-full">
       <h1>
-        {device.name} | {fieldValue}
+        {device.name} | {fieldValue} | {field}
       </h1>
       <div className="w-full h-full flex justify-center items-center">
         <Switch
           checked={enabled}
-          onChange={() => setEnabled(!enabled)}
+          onChange={handleChange}
           className={`${
             enabled ? "bg-blue-600" : "bg-gray-200"
           } relative inline-flex h-10 w-20 items-center rounded-full`}

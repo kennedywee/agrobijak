@@ -18,6 +18,7 @@ import {
 import {
   dataListReducers,
   dataDashboardReducers,
+  dataCreateReducer,
 } from "./reducers/dataReducers";
 
 import {
@@ -55,6 +56,7 @@ const reducer = combineReducers({
 
   dataList: dataListReducers,
   dashboardData: dataDashboardReducers,
+  dataCreate: dataCreateReducer,
 
   widgetList: widgetListReducers,
   widgetCreate: widgetCreateReducer,
