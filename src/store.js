@@ -36,7 +36,11 @@ import {
   scheduleDeleteReducer,
 } from "./reducers/scheduleReducers";
 
-import { widgetListReducers } from "./reducers/widgetReducers";
+import {
+  widgetListReducers,
+  widgetCreateReducer,
+  widgetUpdateReducer,
+} from "./reducers/widgetReducers";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -50,7 +54,10 @@ const reducer = combineReducers({
 
   dataList: dataListReducers,
   dashboardData: dataDashboardReducers,
+
   widgetList: widgetListReducers,
+  widgetCreate: widgetCreateReducer,
+  widgetUpdate: widgetUpdateReducer,
 
   alertList: alertListReducers,
   alertDetails: alertDetailsReducers,

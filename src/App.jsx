@@ -6,6 +6,9 @@ import FeatureScreen from "./screen/FeatureScreen.jsx";
 import RegisterScreen from "./screen/RegisterScreen.jsx";
 import LoginScreen from "./screen/LoginScreen.jsx";
 
+import WidgetScreen from "./screen/Widget/WidgetScreen.jsx";
+import WidgetAddScreen from "./screen/Widget/WidgetAddScreen.jsx";
+
 import ScheduleScreen from "./screen/Schedule/ScheduleScreen.jsx";
 import ScheduleAddScreen from "./screen/Schedule/ScheduleAddScreen.jsx";
 import ScheduleEditScreen from "./screen/Schedule/ScheduleEditScreen.jsx";
@@ -39,7 +42,8 @@ function App() {
         <Route exact path="/profile" element={<ProfileScreen />} />
 
         {/* Functional Links*/}
-        <Route exact path="/dashboard" element={<DashboardScreen />} />
+        <Route exact path="/dashboard" element={<WidgetScreen />} />
+        <Route exact path="/dashboard/add" element={<WidgetAddScreen />} />
 
         <Route exact path="/schedule" element={<ScheduleScreen />} />
         <Route exact path="/schedule/:id" element={<ScheduleEditScreen />} />

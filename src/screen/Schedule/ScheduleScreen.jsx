@@ -69,12 +69,12 @@ const ScheduleScreen = () => {
                 Hello! Welcome to AgroBijak
               </h1>
               <p className="font-poppins ">
-                Start adding and manage the devices for farm with AgroBijak
+                Start adding and manage the schedule for farm with AgroBijak
                 Cloud Platform!
               </p>
-              <Link to="/device/add">
+              <Link to="/schedule/add">
                 <button className="font-poppins text-rose-900 font-bold underline mt-8">
-                  New Device →
+                  New Schedule →
                 </button>
               </Link>
             </div>

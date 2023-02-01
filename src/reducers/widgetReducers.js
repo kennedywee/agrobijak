@@ -2,6 +2,10 @@ import {
   WIDGET_LIST_REQUEST,
   WIDGET_LIST_SUCCESS,
   WIDGET_LIST_FAIL,
+  WIDGET_CREATE_REQUEST,
+  WIDGET_CREATE_SUCCESS,
+  WIDGET_CREATE_FAIL,
+  WIDGET_CREATE_RESET,
   WIDGET_UPDATE_REQUEST,
   WIDGET_UPDATE_SUCCESS,
   WIDGET_UPDATE_FAIL,
@@ -18,6 +22,25 @@ export const widgetListReducers = (state = { widgets: [] }, action) => {
 
     case WIDGET_LIST_FAIL:
       return { widgets: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const widgetCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case WIDGET_CREATE_REQUEST:
+      return { loading: true };
+
+    case WIDGET_CREATE_SUCCESS:
+      return { loading: false, success: true, widget: action.payload };
+
+    case WIDGET_CREATE_FAIL:
+      return { loading: false, error: action.payload };
+
+    case WIDGET_CREATE_RESET:
+      return {};
 
     default:
       return state;

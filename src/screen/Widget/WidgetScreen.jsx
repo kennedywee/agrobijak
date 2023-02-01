@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 
-import { listAlerts } from "../../actions/alertActions";
+import { listWidgets } from "../../actions/widgetActions";
+import { listDevices } from "../../actions/deviceActions";
+import { dashboardData } from "../../actions/dataActions";
 
 import NavbarUser from "../../components/NavbarUser";
 import Footer from "../../components/Footer";
@@ -13,20 +15,29 @@ import Footer from "../../components/Footer";
 import SearchIcon from "@mui/icons-material/Search";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
-import Alert from "../../components/Alert";
+import AgroGridArea from "../../widgets/AgroGridArea";
 
-const AlertScreen = () => {
+const WidgetScreen = () => {
   const dispatch = useDispatch();
-  const alertList = useSelector((state) => state.alertList);
-  const { alerts } = alertList;
+
+  const widgetList = useSelector((state) => state.widgetList);
+  const { widgets } = widgetList;
+
+  const deviceList = useSelector((state) => state.deviceList);
+  const { devices } = deviceList;
+
+  const dashboardDataList = useSelector((state) => state.dashboardData);
+  const { data } = dashboardDataList;
 
   useEffect(() => {
-    dispatch(listAlerts());
+    dispatch(listWidgets());
+    dispatch(listDevices());
+    dispatch(dashboardData());
   }, [dispatch]);
 
   return (
     <div className="flex flex-col min-h-screen">
-      <NavbarUser alert />
+      <NavbarUser dashboard />
 
       <div className="container w-full">
         <div className="flex items-center justify-between space-x-4">
@@ -40,7 +51,7 @@ const AlertScreen = () => {
             <HighlightOffIcon className="mr-2" />
           </div>
           <div className="">
-            <Link to="/alert/add">
+            <Link to="/dashboard/add">
               <button className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900">
                 Add New
               </button>
@@ -48,19 +59,10 @@ const AlertScreen = () => {
           </div>
         </div>
 
-        {/* ALert in Grid */}
-        {!_.isEmpty(alerts) ? (
+        {/* Widget in Grid */}
+        {!_.isEmpty(widgets) ? (
           <div className="justify-center py-10">
-            <div className="grid grid-cols-3 gap-12">
-              {alerts.map((alert) => (
-                <div
-                  key={alert.id}
-                  className="col-span-1 border p-5 rounded-lg cursor-pointer hover:shadow-lg"
-                >
-                  <Alert alert={alert} />
-                </div>
-              ))}
-            </div>
+            <AgroGridArea widgets={widgets} devices={devices} data={data} />
           </div>
         ) : (
           <div className="flex items-center justify-center border h-[400px] rounded-lg my-6">
@@ -69,12 +71,12 @@ const AlertScreen = () => {
                 Hello! Welcome to AgroBijak
               </h1>
               <p className="font-poppins ">
-                Start adding and manage the alerts for farm with AgroBijak Cloud
-                Platform!
+                Start adding and manage the widgets for farm with AgroBijak
+                Cloud Platform!
               </p>
-              <Link to="/device/add">
+              <Link to="/dashboard/add">
                 <button className="font-poppins text-rose-900 font-bold underline mt-8">
-                  New Alert →
+                  New Widget →
                 </button>
               </Link>
             </div>
@@ -89,4 +91,4 @@ const AlertScreen = () => {
   );
 };
 
-export default AlertScreen;
+export default WidgetScreen;

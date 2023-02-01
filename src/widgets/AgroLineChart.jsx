@@ -10,6 +10,8 @@ import {
 
 import moment from "moment/moment";
 
+import { useEffect } from "react";
+
 const AgroLineChart = ({ widget, devices, dData }) => {
   const id = widget.device;
   const device = devices.find((e) => e.id === id);

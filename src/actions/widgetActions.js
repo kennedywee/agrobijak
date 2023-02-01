@@ -4,6 +4,10 @@ import {
   WIDGET_LIST_REQUEST,
   WIDGET_LIST_SUCCESS,
   WIDGET_LIST_FAIL,
+  WIDGET_CREATE_REQUEST,
+  WIDGET_CREATE_SUCCESS,
+  WIDGET_CREATE_FAIL,
+  WIDGET_CREATE_RESET,
   WIDGET_UPDATE_REQUEST,
   WIDGET_UPDATE_SUCCESS,
   WIDGET_UPDATE_FAIL,
@@ -36,6 +40,40 @@ export const listWidgets = () => async (dispatch, getState) => {
       type: WIDGET_LIST_FAIL,
       payload:
         error.response && error.response.data.message
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const createWidget = (widget) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: WIDGET_CREATE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.post(`/api/widgets/create/`, widget, config);
+
+    dispatch({
+      type: WIDGET_CREATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: WIDGET_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
     });
