@@ -3,8 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import _ from "lodash";
-
 import {
   updateSchedule,
   listScheduleDetails,
@@ -62,8 +60,8 @@ const ScheduleEditScreen = () => {
   };
 
   useEffect(() => {
-    console.log(success);
-    console.log(schedule);
+    // console.log(success);
+    // console.log(schedule);
     if (success) {
       dispatch({ type: SCHEDULE_UPDATE_RESET });
       navigator("/schedule");
@@ -97,8 +95,8 @@ const ScheduleEditScreen = () => {
   };
 
   const deleteHandler = (id) => {
-    dispatch(deleteAlert(id));
-    navigator("/alert");
+    dispatch(deleteSchedule(id));
+    navigator("/schedule");
   };
 
   return (
@@ -250,6 +248,25 @@ const ScheduleEditScreen = () => {
                 </UAWrapperContent>
               </UAWrapper>
             </form>
+
+            <div className="border border-red-700 rounded-md shadow-md p-8 mt-10">
+              <h3 className="font-medium text-xl mb-4">Permanently Alert</h3>
+              <hr />
+              <p className="text-gray-700 mt-4">
+                Permanently remove your schedule and all of its data from the
+                Agrobijak platform. This action is not reversible, so please
+                continue with caution.
+              </p>
+
+              <div className="mt-10">
+                <button
+                  onClick={() => deleteHandler(id)}
+                  className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900"
+                >
+                  Delete Schedule
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
