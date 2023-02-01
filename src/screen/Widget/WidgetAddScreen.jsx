@@ -15,7 +15,6 @@ const WidgetAddScreen = () => {
   const navigator = useNavigate();
   const dispatch = useDispatch();
 
-  const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [device, setDevice] = useState("");
   const [field, setField] = useState("");
@@ -58,6 +57,8 @@ const WidgetAddScreen = () => {
     );
     navigator("/dashboard");
   };
+
+  console.log(type);
 
   return (
     <div className="flex flex-col min-h-screen">

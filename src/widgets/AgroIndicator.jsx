@@ -33,7 +33,10 @@ const AgroIndicator = ({ widget, devices, dData }) => {
         {device.name} | {fieldValue}
       </h1>
       <div className="w-full h-[7.5rem] flex flex-col justify-center items-center">
-        <TipsAndUpdatesIcon className="text-green-500" sx={{ fontSize: 50 }} />
+        <TipsAndUpdatesIcon
+          className={field > 0 ? "text-green-600" : "text-red-600"}
+          sx={{ fontSize: 50 }}
+        />
       </div>
     </div>
   );

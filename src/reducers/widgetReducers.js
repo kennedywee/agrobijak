@@ -10,6 +10,9 @@ import {
   WIDGET_UPDATE_SUCCESS,
   WIDGET_UPDATE_FAIL,
   WIDGET_UPDATE_RESET,
+  WIDGET_DELETE_REQUEST,
+  WIDGET_DELETE_SUCCESS,
+  WIDGET_DELETE_FAIL,
 } from "../constants/widgetConstants";
 
 export const widgetListReducers = (state = { widgets: [] }, action) => {
@@ -60,6 +63,22 @@ export const widgetUpdateReducer = (state = { widget: {} }, action) => {
 
     case WIDGET_UPDATE_RESET:
       return { widget: {} };
+
+    default:
+      return state;
+  }
+};
+
+export const widgetDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case WIDGET_DELETE_REQUEST:
+      return {};
+
+    case WIDGET_DELETE_SUCCESS:
+      return { success: true };
+
+    case WIDGET_DELETE_FAIL:
+      return { error: action.payload };
 
     default:
       return state;

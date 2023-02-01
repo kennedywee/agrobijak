@@ -40,6 +40,7 @@ import {
   widgetListReducers,
   widgetCreateReducer,
   widgetUpdateReducer,
+  widgetDeleteReducer,
 } from "./reducers/widgetReducers";
 
 const reducer = combineReducers({
@@ -58,6 +59,7 @@ const reducer = combineReducers({
   widgetList: widgetListReducers,
   widgetCreate: widgetCreateReducer,
   widgetUpdate: widgetUpdateReducer,
+  widgetDelete: widgetDeleteReducer,
 
   alertList: alertListReducers,
   alertDetails: alertDetailsReducers,

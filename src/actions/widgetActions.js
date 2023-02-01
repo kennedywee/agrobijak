@@ -12,6 +12,9 @@ import {
   WIDGET_UPDATE_SUCCESS,
   WIDGET_UPDATE_FAIL,
   WIDGET_UPDATE_RESET,
+  WIDGET_DELETE_REQUEST,
+  WIDGET_DELETE_SUCCESS,
+  WIDGET_DELETE_FAIL,
 } from "../constants/widgetConstants";
 
 export const listWidgets = () => async (dispatch, getState) => {
@@ -116,6 +119,39 @@ export const updateWidget = (widget) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: WIDGET_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const deleteWidget = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: WIDGET_DELETE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.delete(`/api/widgets/delete/${id}/`, config);
+    dispatch({
+      type: WIDGET_DELETE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: WIDGET_DELETE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
