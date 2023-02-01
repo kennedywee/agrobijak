@@ -28,6 +28,14 @@ import {
   alertDeleteReducer,
 } from "./reducers/alertReducers";
 
+import {
+  scheduleListReducers,
+  scheduleDetailsReducers,
+  scheduleCreateReducer,
+  scheduleUpdateReducer,
+  scheduleDeleteReducer,
+} from "./reducers/scheduleReducers";
+
 import { widgetListReducers } from "./reducers/widgetReducers";
 
 const reducer = combineReducers({
@@ -49,6 +57,12 @@ const reducer = combineReducers({
   alertCreate: alertCreateReducer,
   alertUpdate: alertUpdateReducer,
   alertDelete: alertDeleteReducer,
+
+  scheduleList: scheduleListReducers,
+  scheduleDetails: scheduleDetailsReducers,
+  scheduleCreate: scheduleCreateReducer,
+  scheduleUpdate: scheduleUpdateReducer,
+  scheduleDelete: scheduleDeleteReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

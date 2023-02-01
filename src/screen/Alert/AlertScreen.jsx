@@ -48,7 +48,7 @@ const AlertScreen = () => {
           </div>
         </div>
 
-        {/* Device in Grid */}
+        {/* ALert in Grid */}
         {!_.isEmpty(alerts) ? (
           <div className="justify-center py-10">
             <div className="grid grid-cols-3 gap-12">

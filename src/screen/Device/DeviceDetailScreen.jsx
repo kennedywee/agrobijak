@@ -28,8 +28,6 @@ const DeviceDetailScreen = () => {
   const dataList = useSelector((state) => state.dataList);
   const { data } = dataList;
 
-  console.log(device);
-
   useEffect(() => {
     const intervalId = setInterval(() => {
       dispatch(listData(id));

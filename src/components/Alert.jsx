@@ -6,6 +6,7 @@ import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import devices from "../mockdata/devices.json";
 
 const Alert = ({ alert }) => {
+  const devices = JSON.parse(localStorage.getItem("myDevice"));
   const device = devices.find((device) => device.id === alert.device);
   const name = JSON.parse(localStorage.getItem("userInfo")).name;
 
