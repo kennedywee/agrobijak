@@ -31,6 +31,7 @@ const WidgetScreen = () => {
 
   const widgetCreate = useSelector((state) => state.widgetCreate);
   const { success, widget: widgetCreated } = widgetCreate;
+
   const dashboardDataList = useSelector((state) => state.dashboardData);
   const { data } = dashboardDataList;
 
