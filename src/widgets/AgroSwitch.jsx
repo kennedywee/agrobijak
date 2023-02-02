@@ -44,11 +44,8 @@ const AgroSwitch = ({ widget, devices, dData }) => {
   });
 
   return (
-    <div className="w-full h-full">
-      <h1>
-        {device.name} | {fieldValue}
-      </h1>
-      <div className="w-full h-full flex justify-center items-center">
+    <div className="w-full  flex justify-center items-center">
+      <div className="flex justify-center items-center">
         <Switch
           checked={enabled}
           onChange={handleChange}
@@ -63,9 +60,29 @@ const AgroSwitch = ({ widget, devices, dData }) => {
             } inline-block h-10 w-10 transform rounded-full bg-white transition`}
           />
         </Switch>
+        <h1 className="text-center">
+          {widget.device_name} | {widget.field_name}
+        </h1>
       </div>
     </div>
   );
 };
+
+{
+  /* <Switch
+        checked={enabled}
+        onChange={handleChange}
+        className={`${
+          enabled ? "bg-blue-600" : "bg-gray-200"
+        } relative inline-flex h-10 w-20 items-center rounded-full`}
+      >
+        <span className="sr-only">Enable notifications</span>
+        <span
+          className={`${
+            enabled ? "translate-x-10" : "translate-x-1"
+          } inline-block h-10 w-10 transform rounded-full bg-white transition`}
+        />
+      </Switch> */
+}
 
 export default AgroSwitch;
