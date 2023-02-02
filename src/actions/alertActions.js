@@ -90,6 +90,8 @@ export const createAlert = (alert) => async (dispatch, getState) => {
       },
     };
 
+    console.log(alert.field);
+
     const { data } = await axios.post(`/api/alerts/create/`, alert, config);
 
     dispatch({

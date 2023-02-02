@@ -16,6 +16,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 import AgroGridArea from "../../widgets/AgroGridArea";
+import { WIDGET_CREATE_RESET } from "../../constants/widgetConstants";
 
 const WidgetScreen = () => {
   const dispatch = useDispatch();
@@ -26,14 +27,19 @@ const WidgetScreen = () => {
   const deviceList = useSelector((state) => state.deviceList);
   const { devices } = deviceList;
 
+  const widgetCreate = useSelector((state) => state.widgetCreate);
+  const { success, widget: widgetCreated } = widgetCreate;
   const dashboardDataList = useSelector((state) => state.dashboardData);
   const { data } = dashboardDataList;
 
   useEffect(() => {
+    if (success) {
+      dispatch({ type: WIDGET_CREATE_RESET });
+    }
     dispatch(listWidgets());
     dispatch(listDevices());
     dispatch(dashboardData());
-  }, [dispatch]);
+  }, [dispatch, success]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -53,7 +59,7 @@ const WidgetScreen = () => {
           <div className="">
             <Link to="/dashboard/add">
               <button className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900">
-                Add New
+                Settings
               </button>
             </Link>
           </div>

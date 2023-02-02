@@ -10,6 +10,8 @@ import AlertSidebar from "../../components/AlertSidebar";
 import UAWrapper from "../../components/UAWrapper";
 import UAWrapperContent from "../../components/UAWrapperContent";
 
+import _ from "lodash";
+
 const AlertAddScreen = () => {
   const id = useParams();
   const navigator = useNavigate();
@@ -63,6 +65,10 @@ const AlertAddScreen = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    if (_.isEmptyfield) {
+      console.error("field is empty idk why");
+    }
 
     dispatch(
       createAlert({

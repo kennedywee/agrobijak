@@ -14,7 +14,8 @@ const Alert = ({ alert }) => {
     console.error("Device not found aiyaa!");
   }
 
-  const fieldName = device.field1;
+  const fieldName = device[alert.field];
+  console.log(alert.device + alert.field + fieldName);
 
   return (
     <div>

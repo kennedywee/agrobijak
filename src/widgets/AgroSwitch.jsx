@@ -46,7 +46,7 @@ const AgroSwitch = ({ widget, devices, dData }) => {
   return (
     <div className="w-full h-full">
       <h1>
-        {device.name} | {fieldValue} | {field}
+        {device.name} | {fieldValue}
       </h1>
       <div className="w-full h-full flex justify-center items-center">
         <Switch

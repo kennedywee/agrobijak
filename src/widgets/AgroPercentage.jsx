@@ -43,12 +43,6 @@ const AgroPercentage = ({ widget, devices, dData }) => {
     dispatch(deleteWidget(id));
   };
 
-  // useEffect(() => {
-  //   if (success) {
-  //     navigator("dashboard/");
-  //   }
-  // }, [dispatch]);
-
   return (
     <div className="h-full w-full py-2 px-3">
       <h1 onClick={() => console.log("click")}>
