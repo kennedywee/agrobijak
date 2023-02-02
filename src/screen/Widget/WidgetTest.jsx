@@ -74,32 +74,6 @@ const WidgetTest = () => {
   };
   return (
     <div>
-      {/* <AgroGridPro
-        className="layout"
-        onLayoutChange={onLayoutChange}
-        rowHeight={30}
-        draggableHandle={".dragHandler"}
-      >
-        <div
-          className="bg-white border"
-          key="1"
-          data-grid={{ x: 0, y: 0, w: 2, h: 3 }}
-        >
-          <div className="h-full w-full bg-gray-200 flex flex-col">
-            <div className="flex justify-between p-2">
-              <span className="dragHandler">Drag</span>
-              <h1>Delete</h1>
-            </div>
-            <div className="flex-1 p-2 flex flex-col justify-center items-center">
-              <div>Widget Content</div>
-            </div>
-            <div className="p-2 text-center">
-              <h1>Device Name</h1>
-            </div>
-          </div>
-        </div>
-      </AgroGridPro> */}
-
       <AgroGridPro
         className="layout"
         onLayoutChange={onLayoutChange}
