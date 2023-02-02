@@ -1,5 +1,7 @@
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
+import BlurOnIcon from "@mui/icons-material/BlurOn";
+import CloseIcon from "@mui/icons-material/Close";
 
 import React, { useState, useEffect } from "react";
 import _ from "lodash";
@@ -13,7 +15,7 @@ import AgroPercentage from "./AgroPercentage";
 import AgroSwitch from "./AgroSwitch";
 
 import { useDispatch, useSelector } from "react-redux";
-import { updateWidget } from "../actions/widgetActions";
+import { updateWidget, deleteWidget } from "../actions/widgetActions";
 
 const AgroGridArea = ({ widgets, devices, data }) => {
   const dispatch = useDispatch();
@@ -38,22 +40,40 @@ const AgroGridArea = ({ widgets, devices, data }) => {
     percentage: AgroPercentage,
   };
 
+  const handleRemove = (i) => {
+    console.log(i);
+    setLayout(layout.filter((item) => item.i !== i));
+    dispatch(deleteWidget(i));
+    window.location.reload();
+  };
+
   const generateDOM = () =>
     _.map(widgets, (widget) => {
       const Component = components[widget.type] || "span";
+
       return (
-        <div
-          className="border bg-white py-1 px-2"
-          key={widget.i}
-          data-grid={widget}
-        >
-          {typeof Component === "string" ? (
-            <div>
-              <span>Create New Widget</span>
+        <div className="border bg-white" key={widget.i} data-grid={widget}>
+          <div className="h-full w-full bg-white flex flex-col select-none">
+            <div className="flex justify-between">
+              <span className="dragHandler cursor-grab">
+                <BlurOnIcon />
+              </span>
+              <span
+                onClick={() => handleRemove(widget.i)}
+                className="cursor-pointer"
+              >
+                <CloseIcon />
+              </span>
             </div>
-          ) : (
-            <Component widget={widget} devices={devices} dData={data} />
-          )}
+            <div className="flex-1 flex flex-col justify-center items-center">
+              <Component widget={widget} devices={devices} dData={data} />
+            </div>
+            <div className="flex justify-center">
+              <h1>
+                {widget.device_name} | {widget.field_name}
+              </h1>
+            </div>
+          </div>
         </div>
       );
     });
@@ -66,6 +86,7 @@ const AgroGridArea = ({ widgets, devices, data }) => {
         rowHeight={30}
         onLayoutChange={onLayoutChangeHandler}
         layout={layout}
+        draggableHandle={".dragHandler"}
       >
         {generateDOM()}
       </AgroGridPro>

@@ -44,17 +44,8 @@ const AgroPercentage = ({ widget, devices, dData }) => {
   };
 
   return (
-    <div className="h-full w-full py-2 px-3">
-      <h1 onClick={() => console.log("click")}>
-        {device.name} | {fieldValue}
-      </h1>
-
-      <div></div>
-      <div className="h-full w-full flex justify-center text-center">
-        <div className="flex justify-center items-center w-[8rem] top-0">
-          <CircularProgressbar value={value} text={`${value}%`} />
-        </div>
-      </div>
+    <div className="flex justify-center items-center w-[8rem] top-0">
+      <CircularProgressbar value={value} text={`${value}%`} />
     </div>
   );
 };
