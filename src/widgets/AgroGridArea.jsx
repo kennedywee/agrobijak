@@ -1,7 +1,7 @@
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
-import OpenWithIcon from "@mui/icons-material/OpenWith";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import BlurOnIcon from "@mui/icons-material/BlurOn";
+import CloseIcon from "@mui/icons-material/Close";
 
 import React, { useState, useEffect } from "react";
 import _ from "lodash";
@@ -50,19 +50,29 @@ const AgroGridArea = ({ widgets, devices, data }) => {
   const generateDOM = () =>
     _.map(widgets, (widget) => {
       const Component = components[widget.type] || "span";
+
       return (
         <div className="border bg-white" key={widget.i} data-grid={widget}>
-          <div className="h-full w-full">
+          <div className="h-full w-full bg-white flex flex-col select-none">
             <div className="flex justify-between">
-              <div className="dragHandle cursor-move">
-                <OpenWithIcon />
-              </div>
-              <button onClick={() => handleRemove(widget.i)}>
-                <CancelOutlinedIcon />
-              </button>
+              <span className="dragHandler cursor-grab">
+                <BlurOnIcon />
+              </span>
+              <span
+                onClick={() => handleRemove(widget.i)}
+                className="cursor-pointer"
+              >
+                <CloseIcon />
+              </span>
             </div>
-
-            <Component widget={widget} devices={devices} dData={data} />
+            <div className="flex-1 flex flex-col justify-center items-center">
+              <Component widget={widget} devices={devices} dData={data} />
+            </div>
+            <div className="flex justify-center">
+              <h1>
+                {widget.device_name} | {widget.field_name}
+              </h1>
+            </div>
           </div>
         </div>
       );
@@ -76,7 +86,7 @@ const AgroGridArea = ({ widgets, devices, data }) => {
         rowHeight={30}
         onLayoutChange={onLayoutChangeHandler}
         layout={layout}
-        draggableHandle={".dragHandle"}
+        draggableHandle={".dragHandler"}
       >
         {generateDOM()}
       </AgroGridPro>

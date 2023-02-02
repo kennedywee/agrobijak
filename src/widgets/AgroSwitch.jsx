@@ -15,7 +15,6 @@ const AgroSwitch = ({ widget, devices, dData }) => {
   }
 
   const fieldStr = widget.datafield;
-  const fieldValue = device[fieldStr];
 
   let data = dData.filter(function (entry) {
     return entry.device === id;
@@ -45,44 +44,23 @@ const AgroSwitch = ({ widget, devices, dData }) => {
 
   return (
     <div className="w-full  flex justify-center items-center">
-      <div className="flex justify-center items-center">
+      <div className="">
         <Switch
           checked={enabled}
           onChange={handleChange}
-          className={`${
-            enabled ? "bg-blue-600" : "bg-gray-200"
-          } relative inline-flex h-10 w-20 items-center rounded-full`}
+          className={`${enabled ? "bg-teal-700" : "bg-red-700"}
+          relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
         >
-          <span className="sr-only">Enable notifications</span>
+          <span className="sr-only">Use setting</span>
           <span
-            className={`${
-              enabled ? "translate-x-10" : "translate-x-1"
-            } inline-block h-10 w-10 transform rounded-full bg-white transition`}
+            aria-hidden="true"
+            className={`${enabled ? "translate-x-9" : "translate-x-0"}
+            pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
           />
         </Switch>
-        <h1 className="text-center">
-          {widget.device_name} | {widget.field_name}
-        </h1>
       </div>
     </div>
   );
 };
-
-{
-  /* <Switch
-        checked={enabled}
-        onChange={handleChange}
-        className={`${
-          enabled ? "bg-blue-600" : "bg-gray-200"
-        } relative inline-flex h-10 w-20 items-center rounded-full`}
-      >
-        <span className="sr-only">Enable notifications</span>
-        <span
-          className={`${
-            enabled ? "translate-x-10" : "translate-x-1"
-          } inline-block h-10 w-10 transform rounded-full bg-white transition`}
-        />
-      </Switch> */
-}
 
 export default AgroSwitch;

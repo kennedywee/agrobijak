@@ -28,15 +28,12 @@ const AgroGauge = ({ widget, devices, dData }) => {
   const value = field / 100;
 
   return (
-    <div className="w-full h-full">
-      <h1>
-        {device.name} | {fieldValue}
-      </h1>
+    <div>
       <GaugeChart
         id="gauge-chart5"
         nrOfLevels={420}
         arcsLength={[0.5, 0.3, 0.2]}
-        colors={["#5BE12C", "#F5CD19", "#EA4228"]}
+        colors={["#134e4a", "#d97706", "#dc2626"]}
         percent={value}
         arcPadding={0.02}
         textColor="#000000"

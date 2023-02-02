@@ -1,4 +1,4 @@
-import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
 
 const AgroIndicator = ({ widget, devices, dData }) => {
   const id = widget.device;
@@ -28,16 +28,11 @@ const AgroIndicator = ({ widget, devices, dData }) => {
   const value = field / 100;
 
   return (
-    <div className="w-full h-full">
-      <h1>
-        {device.name} | {fieldValue}
-      </h1>
-      <div className="w-full h-[7.5rem] flex flex-col justify-center items-center">
-        <TipsAndUpdatesIcon
-          className={field > 0 ? "text-green-600" : "text-red-600"}
-          sx={{ fontSize: 50 }}
-        />
-      </div>
+    <div>
+      <WbSunnyIcon
+        className={field > 0 ? "text-teal-900" : "text-red-900"}
+        sx={{ fontSize: 75 }}
+      />
     </div>
   );
 };

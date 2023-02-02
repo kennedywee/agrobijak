@@ -29,34 +29,30 @@ const AgroLineChart = ({ widget, devices, dData }) => {
   });
 
   return (
-    <div className="w-full h-full">
-      <h1>
-        {device.name} | {fieldValue}
-      </h1>
-      <div className="w-full h-full flex ">
-        <ResponsiveContainer width="90%" height="90%">
-          <LineChart data={data.reverse()}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="created"
-              tickFormatter={(str) => {
-                const date = moment(str);
-                return date.format("MM/DD/YY");
-              }}
-            />
-            <YAxis dataKey="field2" />
-            <Tooltip />
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart
+        margin={{ top: 5, right: 50, left: 0, bottom: 5 }}
+        data={data.reverse().slice(0, 10)}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis
+          dataKey="created"
+          tickFormatter={(str) => {
+            const date = moment(str);
+            return date.format("MM/DD/YY");
+          }}
+        />
+        <YAxis dataKey="field2" />
+        <Tooltip />
 
-            <Line
-              type="monotone"
-              dataKey="field2"
-              strokeWidth={3}
-              stroke="#8884d8"
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-    </div>
+        <Line
+          type="monotone"
+          dataKey="field2"
+          strokeWidth={3}
+          stroke="#134e4a"
+        />
+      </LineChart>
+    </ResponsiveContainer>
   );
 };
 

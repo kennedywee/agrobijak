@@ -15,6 +15,8 @@ import Footer from "../../components/Footer";
 import SearchIcon from "@mui/icons-material/Search";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
+import WidgetTest from "./WidgetTest";
+
 import AgroGridArea from "../../widgets/AgroGridArea";
 import { WIDGET_CREATE_RESET } from "../../constants/widgetConstants";
 
@@ -47,25 +49,18 @@ const WidgetScreen = () => {
 
       <div className="container w-full">
         <div className="flex items-center justify-between space-x-4">
-          <div className="w-5/6 flex items-center border rounded-md py-1 ">
-            <SearchIcon className="ml-2 mr-2" />
-            <input
-              type="text"
-              placeholder="Search your device here.."
-              className="w-full focus:outline-none"
-            />
-            <HighlightOffIcon className="mr-2" />
-          </div>
+          <h1 className="font-medium text-2xl">AgroBijak Dashboard</h1>
           <div className="">
             <Link to="/dashboard/add">
               <button className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900">
-                Settings
+                Add New Widget
               </button>
             </Link>
           </div>
         </div>
 
-        {/* Widget in Grid */}
+        {/* <WidgetTest /> */}
+
         {!_.isEmpty(widgets) ? (
           <div className="justify-center py-10">
             <AgroGridArea widgets={widgets} devices={devices} data={data} />

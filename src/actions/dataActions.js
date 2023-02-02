@@ -78,6 +78,7 @@ export const dashboardData = () => async (dispatch, getState) => {
 
 export const createData = (newdata) => async (dispatch, getState) => {
   const value = newdata.fieldValue ? 1 : 0;
+
   try {
     dispatch({
       type: DATA_CREATE_REQUEST,
@@ -98,6 +99,7 @@ export const createData = (newdata) => async (dispatch, getState) => {
       device: newdata.device.id,
       [newdata.fieldStr]: value,
     };
+    console.log(body);
 
     const { data } = await axios.post(`/api/data/create/`, body, config);
 
