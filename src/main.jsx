@@ -9,7 +9,7 @@ import axios from "axios";
 
 const localURL = "http://127.0.0.1:8000/";
 const hostedURL = "https://kennedywee.pythonanywhere.com/";
-axios.defaults.baseURL = localURL;
+axios.defaults.baseURL = hostedURL;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

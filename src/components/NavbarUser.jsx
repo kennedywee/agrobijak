@@ -1,6 +1,7 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/userActions";
+import MenuDropDown from "./MenuDropDown";
 
 import { agrobijak, avatar } from "../assets";
 
@@ -71,6 +72,7 @@ const NavbarUser = ({ device, dashboard, schedule, alert }) => {
           <div className="flex flex-row items-center">
             <h3 className="mr-4">
               <button onClick={logoutHandler}>{userInfo.name}</button>
+              {/* <MenuDropDown /> */}
             </h3>
             <Link to="/profile">
               <img src={avatar} alt="avatar" />

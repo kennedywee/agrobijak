@@ -28,11 +28,13 @@ const AgroLineChart = ({ widget, devices, dData }) => {
     return entry.device === id;
   });
 
+  console.log(device.id, fieldStr, data.reverse().slice(0, 10));
+
   return (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
         margin={{ top: 5, right: 50, left: 0, bottom: 5 }}
-        data={data.reverse().slice(0, 10)}
+        data={data.reverse().slice(0, 20)}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
@@ -42,12 +44,14 @@ const AgroLineChart = ({ widget, devices, dData }) => {
             return date.format("MM/DD/YY");
           }}
         />
-        <YAxis dataKey="field2" />
+        <YAxis />
         <Tooltip />
 
         <Line
           type="monotone"
-          dataKey="field2"
+          dataKey={fieldStr}
+          dot={{ strokeWidth: 5 }}
+          activeDot={{ r: 8 }}
           strokeWidth={3}
           stroke="#134e4a"
         />
