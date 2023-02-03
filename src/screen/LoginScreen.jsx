@@ -20,7 +20,12 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
+      if (userInfo.isAdmin) {
+        console.log("admin", userInfo.isAdmin);
+        navigate("/admin");
+      } else {
+        navigate(redirect);
+      }
     }
   }, [navigate, userInfo, redirect]);
 

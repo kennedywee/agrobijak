@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import HomeScreen from "../src/screen/HomeScreen.jsx";
-import DashboardScreen from "../src/screen/DashboardScreen.jsx";
 import FeatureScreen from "./screen/FeatureScreen.jsx";
 import RegisterScreen from "./screen/RegisterScreen.jsx";
 import LoginScreen from "./screen/LoginScreen.jsx";
+import AdminScreen from "./screen/AdminScreen.jsx";
 
 import WidgetScreen from "./screen/Widget/WidgetScreen.jsx";
 import WidgetAddScreen from "./screen/Widget/WidgetAddScreen.jsx";
@@ -40,6 +40,7 @@ function App() {
         <Route exact path="/register" element={<RegisterScreen />} />
         <Route exact path="/login" element={<LoginScreen />} />
         <Route exact path="/profile" element={<ProfileScreen />} />
+        <Route exact path="/admin" element={<AdminScreen />} />
 
         {/* Functional Links*/}
         <Route exact path="/dashboard" element={<WidgetScreen />} />

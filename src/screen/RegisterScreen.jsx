@@ -20,8 +20,11 @@ const RegisterScreen = () => {
   const userRegister = useSelector((state) => state.userRegister);
   const { error, loading, userInfo } = userRegister;
 
+  console.log("email", email);
+
   useEffect(() => {
     if (userInfo) {
+      console.log("userInfo", userInfo);
       navigate(redirect);
     }
   }, [navigate, userInfo, redirect]);

@@ -67,7 +67,7 @@ const AlertEditScreen = () => {
       navigator("/alert");
       console.log("here");
     } else {
-      if (!alert.name || alert.id !== Number(id)) {
+      if (!alert.name || alert.id !== Number(id) || success) {
         dispatch(listAlertDetails(id));
       } else {
         setName(alert.name);

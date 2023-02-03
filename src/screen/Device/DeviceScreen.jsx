@@ -20,6 +20,7 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 const DeviceScreen = () => {
   const dispatch = useDispatch();
   const deviceList = useSelector((state) => state.deviceList);
+  console.log("deviceList", deviceList);
   const { error, loading, devices } = deviceList;
 
   useEffect(() => {
