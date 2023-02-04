@@ -70,10 +70,7 @@ const NavbarUser = ({ device, dashboard, schedule, alert }) => {
           </ul>
 
           <div className="flex flex-row items-center">
-            <h3 className="mr-4">
-              <button onClick={logoutHandler}>{userInfo.name}</button>
-              {/* <MenuDropDown /> */}
-            </h3>
+            <h3 className="mr-4">{userInfo.name}</h3>
             <Link to="/profile">
               <img src={avatar} alt="avatar" />
             </Link>

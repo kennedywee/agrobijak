@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { getUserDetails, updateUserProfile } from "../actions/userActions";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
+import { logout } from "../actions/userActions";
 
 const ProfileScreen = () => {
   const navigator = useNavigate();
@@ -48,6 +49,12 @@ const ProfileScreen = () => {
     }
   };
 
+  const logoutHandler = () => {
+    dispatch(logout());
+    console.log("logout");
+    navigator("/");
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <NavbarUser />
@@ -66,6 +73,15 @@ const ProfileScreen = () => {
               Profile Settings
             </h1>
             <p className="font-poppins">Change your profile details here.</p>
+          </div>
+
+          <div>
+            <button
+              onClick={logoutHandler}
+              className="bg-rose-900 text-gray-200 font-bold  rounded-md px-10 py-1"
+            >
+              Logout
+            </button>
           </div>
         </div>
 

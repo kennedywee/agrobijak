@@ -169,7 +169,7 @@ export const deleteDevice = (id) => async (dispatch, getState) => {
     });
   } catch (error) {
     dispatch({
-      type: DEVICE_UPDATE_FAIL,
+      type: DEVICE_DELETE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
