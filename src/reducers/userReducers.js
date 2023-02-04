@@ -18,6 +18,8 @@ import {
   USER_LIST_SUCCESS,
   USER_LIST_FAIL,
   USER_LIST_RESET,
+  UPDATE_TOKEN,
+  UPDATE_SELECTED_USER,
 } from "../constants/userConstants";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -118,6 +120,16 @@ export const userListReducers = (state = { users: [] }, action) => {
 
     case USER_LIST_RESET:
       return { users: [] };
+
+    default:
+      return state;
+  }
+};
+
+export const updateToAdminReducers = (state = {}, action) => {
+  switch (action.type) {
+    case "UPDATE_TO_ADMIN":
+      return { ...state, userInfo: action.payload };
 
     default:
       return state;

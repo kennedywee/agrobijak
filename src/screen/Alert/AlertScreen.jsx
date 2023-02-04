@@ -13,12 +13,20 @@ import Footer from "../../components/Footer";
 import SearchIcon from "@mui/icons-material/Search";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
+import { PacmanLoader } from "react-spinners";
+
 import Alert from "../../components/Alert";
 
 const AlertScreen = () => {
   const dispatch = useDispatch();
   const alertList = useSelector((state) => state.alertList);
   const { alerts } = alertList;
+
+  const deviceList = useSelector((state) => state.deviceList);
+  const { error, loading, devices } = deviceList;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   useEffect(() => {
     dispatch(listAlerts());
@@ -30,7 +38,8 @@ const AlertScreen = () => {
 
       <div className="container w-full">
         <div className="flex items-center justify-between space-x-4">
-          <div className="w-5/6 flex items-center border rounded-md py-1 ">
+          <h1 className="font-medium text-2xl">AgroBijak Alerts</h1>
+          {/* <div className="w-5/6 flex items-center border rounded-md py-1 ">
             <SearchIcon className="ml-2 mr-2" />
             <input
               type="text"
@@ -38,11 +47,11 @@ const AlertScreen = () => {
               className="w-full focus:outline-none"
             />
             <HighlightOffIcon className="mr-2" />
-          </div>
+          </div> */}
           <div className="">
             <Link to="/alert/add">
               <button className="font-poppins font-bold text-gray-200 rounded-md px-10 py-1 bg-rose-900">
-                Add New
+                Add New Alert
               </button>
             </Link>
           </div>
@@ -65,18 +74,50 @@ const AlertScreen = () => {
         ) : (
           <div className="flex items-center justify-center border h-[400px] rounded-lg my-6">
             <div className="items-center justify-center text-center">
-              <h1 className="font-poppins font-semibold mb-2">
-                Hello! Welcome to AgroBijak
-              </h1>
-              <p className="font-poppins ">
-                Start adding and manage the alerts for farm with AgroBijak Cloud
-                Platform!
-              </p>
-              <Link to="/device/add">
-                <button className="font-poppins text-rose-900 font-bold underline mt-8">
-                  New Alert →
-                </button>
-              </Link>
+              {userInfo && userInfo.isAdmin ? (
+                <div>
+                  <h1 className="font-poppins font-semibold mb-2">
+                    This user has no device yet.
+                  </h1>
+                  <p className="font-poppins ">
+                    Start adding and manage the device for farm with AgroBijak
+                    Cloud Platform!
+                  </p>
+                  <Link to="/alert/add">
+                    <button className="font-poppins text-rose-900 font-bold underline mt-8">
+                      New Alert →
+                    </button>
+                  </Link>
+                </div>
+              ) : _.isEmpty(devices) ? (
+                <div>
+                  <h1 className="font-bold text-lg mb-2">Under Contruction.</h1>
+                  <h2 className="font-semibold mb-2">
+                    There is no device yet to configure a alert with.
+                  </h2>
+                  <p>
+                    Please wait patiently while our staff add your device
+                    <br />
+                    and configure your dashboard for your farm.
+                  </p>
+                  <PacmanLoader className="left-[40%] mt-3" color="#fbbf24" />
+                </div>
+              ) : (
+                <div>
+                  <h2 className="font-semibold mb-2">
+                    Hello! There is no alerts yet.
+                  </h2>
+                  <p className="font-poppins ">
+                    Start adding and manage the alerts for farm with AgroBijak
+                    Cloud Platform!
+                  </p>
+                  <Link to="/alert/add">
+                    <button className="font-poppins text-rose-900 font-bold underline mt-8">
+                      New Alert →
+                    </button>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         )}

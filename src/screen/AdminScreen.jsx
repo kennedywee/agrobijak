@@ -21,17 +21,21 @@ const AdminScreen = () => {
     dispatch(listUsers());
   }, [dispatch]);
 
-  const userHandler = (token) => {
+  const userHandler = (token, name) => {
     dispatch({
       type: "UPDATE_TOKEN",
       payload: token,
     });
+    const data = { ...userInfo, selectedUser: name };
+    data.token = token;
+    localStorage.setItem("userInfo", JSON.stringify(data));
     navigate("/device");
+    window.location.reload();
   };
 
   return (
     <div className="flex flex-col min-h-screen">
-      <NavbarUser />
+      <NavbarUser admin />
 
       <div className="container">
         {error ? (
@@ -205,7 +209,7 @@ const AdminScreen = () => {
                     </td>
                     <td className="px-6 py-4">
                       <button
-                        onClick={() => userHandler(user.token)}
+                        onClick={() => userHandler(user.token, user.name)}
                         className="font-medium text-blue-600 hover:underline"
                       >
                         Go to user view

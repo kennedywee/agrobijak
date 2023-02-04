@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 
-import devices from "../mockdata/devices.json";
-
 const Alert = ({ alert }) => {
   const devices = JSON.parse(localStorage.getItem("myDevice"));
   const device = devices.find((device) => device.id === alert.device);
