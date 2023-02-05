@@ -13,7 +13,6 @@ const Alert = ({ alert }) => {
   }
 
   const fieldName = device[alert.field];
-  console.log(alert.device + alert.field + fieldName);
 
   return (
     <div>

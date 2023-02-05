@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 
 import { listSchedules } from "../../actions/scheduleActions";
+import { listDevices } from "../../actions/deviceActions";
 
 import NavbarUser from "../../components/NavbarUser";
 import Footer from "../../components/Footer";
@@ -16,6 +17,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 import { PacmanLoader } from "react-spinners";
+
+import Loader from "../../components/Loader";
+import InfoBar from "../../components/InfoBar";
 
 const ScheduleScreen = () => {
   const dispatch = useDispatch();
@@ -30,6 +34,7 @@ const ScheduleScreen = () => {
 
   useEffect(() => {
     dispatch(listSchedules());
+    dispatch(listDevices());
   }, [dispatch]);
 
   return (

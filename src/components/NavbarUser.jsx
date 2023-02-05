@@ -1,30 +1,11 @@
-import {
-  Link,
-  useNavigate,
-  useLocation,
-  useRouteError,
-} from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../actions/userActions";
-import MenuDropDown from "./MenuDropDown";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { agrobijak, avatar } from "../assets";
 
 const NavbarUser = ({ device, dashboard, schedule, alert, admin }) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const redirect = "/";
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-
-  console.log(userInfo);
-
-  const logoutHandler = () => {
-    dispatch(logout());
-    navigate(redirect);
-  };
 
   return (
     <nav className="border-b-[1px] border-gray-300 mb-8">

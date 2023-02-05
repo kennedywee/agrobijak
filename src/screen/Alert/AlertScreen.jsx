@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 
 import { listAlerts } from "../../actions/alertActions";
+import { listDevices } from "../../actions/deviceActions";
 
 import NavbarUser from "../../components/NavbarUser";
 import Footer from "../../components/Footer";
@@ -30,6 +31,7 @@ const AlertScreen = () => {
 
   useEffect(() => {
     dispatch(listAlerts());
+    dispatch(listDevices());
   }, [dispatch]);
 
   return (

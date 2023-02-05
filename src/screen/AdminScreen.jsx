@@ -7,6 +7,9 @@ import { listUsers } from "../actions/userActions";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import InfoBar from "../components/InfoBar";
+import Loader from "../components/Loader";
+
 const AdminScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,8 +41,10 @@ const AdminScreen = () => {
       <NavbarUser admin />
 
       <div className="container">
-        {error ? (
-          <div>{error}</div>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <InfoBar error={error} />
         ) : (
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg select-none">
             <div className="flex items-center justify-between pb-4 bg-white">

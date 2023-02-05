@@ -128,7 +128,7 @@ export const userListReducers = (state = { users: [] }, action) => {
 
 export const updateToAdminReducers = (state = {}, action) => {
   switch (action.type) {
-    case "UPDATE_TO_ADMIN":
+    case "UPDATE_TOKEN":
       return { ...state, userInfo: action.payload };
 
     default:
