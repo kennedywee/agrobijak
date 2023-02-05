@@ -36,7 +36,7 @@ const RegisterScreen = () => {
     } else {
       dispatch(register({ name, email, password }));
       navigate("/device");
-      window.location.reload();
+      // window.location.reload();
     }
   };
 
